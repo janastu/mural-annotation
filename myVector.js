@@ -18,44 +18,45 @@ var handler={
     check1: false,
     check2: false,
     trigger: function() {
-	if(handler.check == false)
-	{
-	    handler.check = true;
-	    myjson = {"temple":[
-		{"period": "16th century"},
-		{"location":"13.80338 - 77.61067"},
-		{"sthapati":"Shivakumar"},
-		{"innerloc": "MaharangaMandapa"}
-	    ],
-		      "size": "311110px X 4668 px",
-		      "narrative": "Narrative",
-		      "muralTradition": "XYZ",
-		      "muralTechnique": "Foo",
-		      "muralContent": "Bar"
-		     };
-	    var x = document.getElementById("content");
-	    for (var i in myjson)
-	    {
-		if(i == "temple")
-		{
-		    for(var y =0; y <myjson[i].length;y++)
-		    {
-			for(var z in myjson[i][y])
-			{
-			    x.innerHTML += z+': '+'<i>'+myjson[i][y][z]+'</i>; ';
-			}
-		    }
-		}
-		else{
-		    x.innerHTML += i+': '+'<i>'+myjson[i]+'</i>; ';
-		}
-	    }
-	}
-	else{
-	    var x = document.getElementById("content");
-	    x.innerHTML ='';
-	    handler.check = false;
-	}
+	// if(handler.check == false)
+	// {
+	//     handler.check = true;
+	//     myjson = {"temple":[
+	// 	{"period": "16th century"},
+	// 	{"location":"13.80338 - 77.61067"},
+	// 	{"sthapati":"Shivakumar"},
+	// 	{"innerloc": "MaharangaMandapa"}
+	//     ],
+	// 	      "size": "311110px X 4668 px",
+	// 	      "narrative": "Narrative",
+	// 	      "muralTradition": "XYZ",
+	// 	      "muralTechnique": "Foo",
+	// 	      "muralContent": "Bar"
+	// 	     };
+	//     var x = document.getElementById("content");
+	//     for (var i in myjson)
+	//     {
+	// 	if(i == "temple")
+	// 	{
+	// 	    for(var y =0; y <myjson[i].length;y++)
+	// 	    {
+	// 		for(var z in myjson[i][y])
+	// 		{
+	// 		    x.innerHTML += z+': '+'<i>'+myjson[i][y][z]+'</i>; ';
+	// 		}
+	// 	    }
+	// 	}
+	// 	else{
+	// 	    x.innerHTML += i+': '+'<i>'+myjson[i]+'</i>; ';
+	// 	}
+	//     }
+	// }
+	// else{
+	//     var x = document.getElementById("content");
+	//     x.innerHTML ='';
+	//     handler.check = false;
+	// }
+	onMyFeatureSelect(map);
     },
     trigger1: function() {
 	if(handler.check1 == false)
@@ -128,11 +129,32 @@ var handler={
 };
 function onFeatureSelect(feature)
 {
-    z = new OpenLayers.Popup(
+    z = new OpenLayers.Popup.FramedCloud(
 	"test",
-	new OpenLayers.LonLat(4263.0000, -1630.33337),
+	feature.geometry.getBounds().getCenterLonLat(),
 	new OpenLayers.Size(640,480),
-	'<iframe width="480" height="360" src="http://www.youtube.com/embed/WwNUnmZ_aww" frameborder="0" allowfullscreen></iframe>',true);
+	'<iframe width="480" height="360" src="http://www.youtube.com/embed/WwNUnmZ_aww" frameborder="0" allowfullscreen></iframe>',null,true);
+    feature.popup = z;
+    z.panMapIfOutOfView = true;
+    map.addPopup(z);
+}
+function onMyFeatureSelect(feature)
+{
+    z = new OpenLayers.Popup.FramedCloud(
+	"test",
+        new OpenLayers.LonLat(15555, -2334),  // Always should be at the center of the map, not the center of viewport.
+	new OpenLayers.Size(640,480),
+	"<pre><b><center>Temple</center></b>\n"+
+	    "period: 16th century\n"+
+	    "location: 13.80338 - 77.61067\n"+
+	    "sthapati: Shivakumar\n"+
+	    "innerloc: MaharangaMandapa\n"+
+	    "size: 311110px X 4668 px\n"+
+	    "narrative: Narrative\n"+
+	    "muralTradition: XYZ\n"+
+	    "muralTechnique: Foo\n"+
+	    "muralContent: Bar</pre>"
+	,null,true);
     feature.popup = z;
     z.panMapIfOutOfView = true;
     map.addPopup(z);
@@ -162,7 +184,7 @@ function init(){
         box = new OpenLayers.Feature.Vector(bounds.toGeometry());
         box2.addFeatures(box);
     }
-    box3 = new OpenLayers.Layer.Vector( "Boxes" );
+    box3 = new OpenLayers.Layer.Vector( "Boxes");
     for (var i = 0; i < box_extents1.length; i++) {
         ext = box_extents1[i];
         bounds = OpenLayers.Bounds.fromArray(ext);
@@ -175,6 +197,9 @@ function init(){
     selectControl = new OpenLayers.Control.SelectFeature(box3,
 							 {onSelect: onFeatureSelect});
     
+    MapselectControl = new OpenLayers.Control.SelectFeature(map,
+							 {onSelect: onMyFeatureSelect});
+    
     drawControls = {
 	box : new OpenLayers.Control.DrawFeature(boxes,
 				       OpenLayers.Handler.RegularPolygon, {
@@ -184,13 +209,15 @@ function init(){
 					   }
 				       }
 						),
-	select: selectControl
+	select: selectControl,
+	mySelect: MapselectControl
     };
     map.zoomToExtent( mapBounds );	
     for(var key in drawControls){
 	map.addControl(drawControls[key]);
     }
     drawControls['select'].activate();
+    drawControls['mySelect'].activate();
     addLabel('3759.0000','-1274.33337','Face');
     addLabel('3719','-1771','Jewelery');
     addLabel('4263.0000','-1630.33337', 'Video')
