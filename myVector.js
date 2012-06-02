@@ -197,9 +197,6 @@ function init(){
     selectControl = new OpenLayers.Control.SelectFeature(box3,
 							 {onSelect: onFeatureSelect});
     
-    MapselectControl = new OpenLayers.Control.SelectFeature(map,
-							 {onSelect: onMyFeatureSelect});
-    
     drawControls = {
 	box : new OpenLayers.Control.DrawFeature(boxes,
 				       OpenLayers.Handler.RegularPolygon, {
@@ -209,15 +206,13 @@ function init(){
 					   }
 				       }
 						),
-	select: selectControl,
-	mySelect: MapselectControl
+	select: selectControl
     };
     map.zoomToExtent( mapBounds );	
     for(var key in drawControls){
 	map.addControl(drawControls[key]);
     }
     drawControls['select'].activate();
-    drawControls['mySelect'].activate();
     addLabel('3759.0000','-1274.33337','Face');
     addLabel('3719','-1771','Jewelery');
     addLabel('4263.0000','-1630.33337', 'Video')
@@ -311,9 +306,16 @@ function myfeatureadded(myObj)
 	favColor: 'blue',
     };
     labelFeature.attributes['name'] = prompt("Enter a name");
-    map.addLayer(vectorLayer);
-    vectorLayer.drawFeature(labelFeature);
-    vectorLayer.addFeatures([labelFeature]);
+    console.log(labelFeature.attributes['name']);
+    if(labelFeature.attributes['name'])
+    {
+	console.log("here");
+	map.addLayer(vectorLayer);
+	vectorLayer.drawFeature(labelFeature);
+	vectorLayer.addFeatures([labelFeature]);
+    }
+    else
+	    myObj.feature.destroy();
 }
 function toggleControl(element) {
     for(key in drawControls) {
