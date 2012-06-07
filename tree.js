@@ -18,63 +18,71 @@ var labelType, useGradients, nativeTextSupport, animate;
 function inits(){
     //init data
     var json = {
-        "id": "target",
-        "name": "Target",
+        "id": "characteristics",
+        "name": "Characteristics",
         "children": [
 	    // Location
 	    {
-		"id": "location",
-		"name": "Location",
+		"id": "character",
+		"name": "Character",
 		"data": {
-                    "band": "Target",
+                    "band": "Characteristics",
                     "relation": "coordinators.html"
 		},
 		"children": [{
-                    "id": "bangalore",
-                    "name": "Bangalore",
+                    "id": "shiva",
+                    "name": "Shiva",
                     "data": {
-			"band": "Location",
+			"band": "Character",
 			"relation": "individual_ranganathan.html"
                     },
                     "children": []
 
 		}, {
-                    "id": "mysore",
-                    "name": "Mysore",
+                    "id": "parvathi",
+                    "name": "Parvathi",
                     "data": {
-			"band": "Location",
+			"band": "Character",
 			"relation": "individual_sharat.html"
                     },
                     "children": []
 		}, {
-                    "id": "hyderabad",
-                    "name": "Hyderabad",
+                    "id": "ganesha",
+                    "name": "Ganesha",
                     "data": {
-			"band": "Location",
+			"band": "Character",
 			"relation": "individual_sharat.html"
                     },
                     "children": []
 		},  {
-                    "id": "bengal",
-                    "name": "Bengal",
+                    "id": "bramha",
+                    "name": "Bramha",
                     "data": {
-			"band": "Location",
+			"band": "Character",
 			"relation": "individual_sharat.html"
                     },
                     "children": []
 		},  {
-                    "id": "delhi",
-                    "name": "Delhi",
+                    "id": "vishnu",
+                    "name": "Vishnu",
                     "data": {
-			"band": "Location",
+			"band": "Character",
 			"relation": "individual_sharat.html"
                     },
                     "children": []
 		}, {
-                    "id": "chennai",
-                    "name": "Chennai",
+                    "id": "krishna",
+                    "name": "Krishna",
                     "data": {
-			"band": "Location",
+			"band": "Character",
+			"relation": "individual_muralimohan.html"
+                    },
+                    "children": []
+		}, {
+                    "id": "radha",
+                    "name": "Radha",
+                    "data": {
+			"band": "Character",
 			"relation": "individual_muralimohan.html"
                     },
                     "children": []
@@ -82,134 +90,140 @@ function inits(){
             }, 
     // Languages
 	    {
-		"id": "languages",
-		"name": "Languages",
+		"id": "ornament",
+		"name": "Ornament",
 		"data": {
-		    "band": "Target",
+		    "band": "Characteristics",
 		    "relation": "cultural.html"
 		},
 		"children": [{
-		    "id": "kannada",
-		    "name": "Kannada",
+		    "id": "jewellery",
+		    "name": "Jewellery",
 		    "data": {
-			"band": "Languages",
+			"band": "Ornament",
 			"relation": "project_murals.html"
 		    },
-		    "children": []
+		    "children": [{
+			"id": "ear-ring",
+			"name": "Ear-ring",
+			"data": {
+			    "band": "Jewellery",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "ring",
+			"name": "Ring",
+			"data": {
+			    "band": "Jewellery",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "nose-ring",
+			"name": "Nose-ring",
+			"data": {
+			    "band": "Jewellery",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "pendent",
+			"name": "Pendent",
+			"data": {
+			    "band": "Jewellery",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "ankelet",
+			"name": "Ankelet",
+			"data": {
+			    "band": "Jewellery",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "bracelet",
+			"name": "Bracelet",
+			"data": {
+			    "band": "Jewellery",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "bangles",
+			"name": "Bangles",
+			"data": {
+			    "band": "Jewellery",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    }]
 		}, {
-		    "id": "english",
-		    "name": "English",
+		    "id": "material",
+		    "name": "Material",
 		    "data": {
-			"band": "Languages",
+			"band": "Ornament",
 			"relation": "project_knowledge.html"
 		    },
-		    "children": []
-		}, {
-		    "id": "marathi",
-		    "name": "Marathi",
-		    "data": {
-			"band": "Languages",
-			"relation": "project_crafts.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "hindi",
-		    "name": "Hindi",
-		    "data": {
-			"band": "Languages",
-			"relation": "project_interfaces.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "tamil",
-		    "name": "Tamil",
-		    "data": {
-			"band": "Languages",
-			"relation": "project_intagible.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "telugu",
-		    "name": "Telugu",
-		    "data": {
-			"band": "Languages",
-			"relation": "project_original.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "gujarati",
-		    "name": "Gujarati",
-		    "data": {
-			"band": "Languages",
-			"relation": "project_memorilization.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "bengali",
-		    "name": "Bengali",
-		    "data": {
-			"band": "Languages",
-			"relation": "project_design.html"
-		    },
-		    "children": []
-		}]
-	    },
-	    // Style
-	    {
-		"id": "style",
-		"name": "Style",
-		"data": {
-		    "band": "Target",
-		    "relation": "technology.html"
-		},
-		"children": [{
-		    "id": "summary",
-		    "name": "Summary",
-		    "data": {
-			"band": "Style",
-			"relation": "project_features.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "abstract",
-		    "name": "Abstract",
-		    "data": {
-			"band": "Style",
-			"relation": "project_ontologies.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "simplification",
-		    "name": "Simplification",
-		    "data": {
-			"band": "Style",
-			"relation": "project_representation.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "translation",
-		    "name": "Translation",
-		    "data": {
-			"band": "Style",
-			"relation": "project_3dsurface.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "funny",
-		    "name": "Funny",
-		    "data": {
-			"band": "Style",
-			"relation": "project_immersion.html"
-		    },
-		    "children": []
-		}, {
-		    "id": "imaginary",
-		    "name": "Imaginary",
-		    "data": {
-			"band": "Style",
-			"relation": "project_haptic.html"
-		    },
-		    "children": []
+		    "children": [{
+			"id": "gold",
+			"name": "Gold",
+			"data": {
+			    "band": "Material",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "silver",
+			"name": "Silver",
+			"data": {
+			    "band": "Material",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "bronze",
+			"name": "Bronze",
+			"data": {
+			    "band": "Material",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "ruby",
+			"name": "Ruby",
+			"data": {
+			    "band": "Material",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "copper",
+			"name": "Copper",
+			"data": {
+			    "band": "Material",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "diamond",
+			"name": "Diamond",
+			"data": {
+			    "band": "Material",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    },{
+			"id": "topaz",
+			"name": "Topaz",
+			"data": {
+			    "band": "Material",
+			    "relation": "project_murals.html"
+			},
+			"children": []
+		    }]
 		}]
 	    }],
 	"data": {
@@ -218,7 +232,7 @@ function inits(){
     };
     //end
     var infovis = document.getElementById('infovis');
-    var w = 500; var h = 382;;
+    var w = infovis.offsetWidth + 500; var h = infovis.offsetHeight + 385;
     
     //init Hypertree
     var ht = new $jit.Hypertree({
@@ -278,10 +292,10 @@ function inits(){
             } else if(node._depth == 1){
 		style.fontSize = "0.9em";
 		style.color = "#222";
-            } else if(node._depth == 2){
-		style.fontSize = "0.7em";
-		style.color = "#444";
-            }
+            } // else if(node._depth == 2){
+	    // 	style.fontSize = "0.7em";
+	    // 	style.color = "#444";
+            // }
 	    else {
 		style.display = 'none';
             }
@@ -298,6 +312,8 @@ function inits(){
     //end
     ht.controller.onComplete();
 }
+
+document.addEventListener("DOMContentLoaded", inits, false);
 
     /* ****************************************************************************************************** */
 

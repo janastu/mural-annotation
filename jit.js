@@ -6737,8 +6737,9 @@ THE SOFTWARE.
 	     };
 	     for(var z=0.31;z<=1;z+=0.01){
 		 var y=(1-Math.pow(z,C))/(1-z);
-		 if(y>=2){  //Ajay - y>=2
-		     return B(z-0.01) // Ajay - 0.01
+		 if(y>=2){  //Ajay - Curve of an edge, increase in value = more curve.
+		     return B(z-0.02) // Ajay - Default(0.0)!! // Ajay - make it clickable upto the depth of tree, STEP BY STEP. 
+		                                                         //Increase in value = deeper the length.
 		 }
 	     }
 	     return B(0.75)
@@ -6779,13 +6780,13 @@ THE SOFTWARE.
 	 },
 	 onClick:function(y,w){
 // Ajay - Visual target selection
-	     if (this.graph.getNode(y)._angularWidth == 0.5) {
-		 if (this.graph.getNode(y).data.band == "Location") {
-		     $("#loc-select").html(this.graph.getNode(y).name);
-		 } else if (this.graph.getNode(y).data.band == "Languages") {
-		     $("#lang-select").html(this.graph.getNode(y).name);
-		 } else	if (this.graph.getNode(y).data.band == "Style") {
-		     $("#style-select").html(this.graph.getNode(y).name);
+	     if (this.graph.getNode(y)._angularWidth <= 0.5) {
+		 if (this.graph.getNode(y).data.band == "Character") {
+		     $("#character-value").html(this.graph.getNode(y).name);
+		 } else if (this.graph.getNode(y).data.band == "Jewellery") {
+		     $("#jewellery-value").html(this.graph.getNode(y).name);
+		 } else	if (this.graph.getNode(y).data.band == "Material") {
+		     $("#material-value").html(this.graph.getNode(y).name);
 		 }
 	     }
 // Ajay - end of visual target  selection
@@ -6794,7 +6795,7 @@ THE SOFTWARE.
 	 },
 	 move:function(A,y){
 	     var x=r(A.x,A.y);
-	     if(this.busy===false&&x.norm()<0.7){ // Ajay - 1
+	     if(this.busy===false&&x.norm()<0.9){ // Ajay - make it clickable upto the depth of tree DIRECTLY. Increase in value = deeper the length.
 		 this.busy=true;
 		 var w=this.graph.getClosestNodeToPos(x),
 		 z=this;this.graph.computeLevels(w.id,0);
