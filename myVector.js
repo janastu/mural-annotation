@@ -18,112 +18,36 @@ var handler={
     check1: false,
     check2: false,
     trigger: function() {
-	// if(handler.check == false)
-	// {
-	//     handler.check = true;
-	//     myjson = {"temple":[
-	// 	{"period": "16th century"},
-	// 	{"location":"13.80338 - 77.61067"},
-	// 	{"sthapati":"Shivakumar"},
-	// 	{"innerloc": "MaharangaMandapa"}
-	//     ],
-	// 	      "size": "311110px X 4668 px",
-	// 	      "narrative": "Narrative",
-	// 	      "muralTradition": "XYZ",
-	// 	      "muralTechnique": "Foo",
-	// 	      "muralContent": "Bar"
-	// 	     };
-	//     var x = document.getElementById("content");
-	//     for (var i in myjson)
-	//     {
-	// 	if(i == "temple")
-	// 	{
-	// 	    for(var y =0; y <myjson[i].length;y++)
-	// 	    {
-	// 		for(var z in myjson[i][y])
-	// 		{
-	// 		    x.innerHTML += z+': '+'<i>'+myjson[i][y][z]+'</i>; ';
-	// 		}
-	// 	    }
-	// 	}
-	// 	else{
-	// 	    x.innerHTML += i+': '+'<i>'+myjson[i]+'</i>; ';
-	// 	}
-	//     }
-	// }
-	// else{
-	//     var x = document.getElementById("content");
-	//     x.innerHTML ='';
-	//     handler.check = false;
-	// }
-	onMyFeatureSelect(map);
+	myjson = {"temple":[
+	    {"period": "16th century"},
+	    {"location":"13.80338 - 77.61067"},
+	    {"sthapati":"Shivakumar"},
+	    {"innerloc": "MaharangaMandapa"}
+	],
+		  "size": "311110px X 4668 px",
+		  "narrative": "Narrative",
+		  "muralTradition": "XYZ",
+		  "muralTechnique": "Foo",
+		  "muralContent": "Bar"
+		 };
+	onMyFeatureSelect(map,myjson,15555, -2334);
     },
     trigger1: function() {
-	if(handler.check1 == false)
-	{
-	    handler.check1 = true;
 	    myjson = {"face":[
 		{"character":"Shiva"}
 	    ],
 		      "size": "310px X 460px"  // jewellery:earring; material: silver,
 		     };
-	    var x = document.getElementById("content1");
-	    for (var i in myjson)
-	    {
-		if(i == "face")
-		{
-		    for(var y =0; y <myjson[i].length;y++)
-		    {
-			for(var z in myjson[i][y])
-			{
-			    x.innerHTML += z+': '+'<i>'+myjson[i][y][z]+'</i>; ';
-			}
-		    }
-		}
-		else{
-		    x.innerHTML += i+': '+'<i>'+myjson[i]+'</i>; ';
-		}
-	    }
-	}
-	else{
-	    var x = document.getElementById("content1");
-	    x.innerHTML ='';
-	    handler.check1 = false;
-	}
+	onMyFeatureSelect(map,myjson,3915,- 1438);
     },
     trigger2: function() {
-	if(handler.check2 == false)
-	{
-	    handler.check2 = true;
 	    myjson = {"ornament":[
 		{"jewelery":"Pendant"},
 		{"Material":"Silver"}
 	    ],
 		      "size": "50px X 90px"  
 		     };
-	    var x = document.getElementById("content2");
-	    for (var i in myjson)
-	    {
-		if(i == "ornament")
-		{
-		    for(var y =0; y <myjson[i].length;y++)
-		    {
-			for(var z in myjson[i][y])
-			{
-			    x.innerHTML += z+': '+'<i>'+myjson[i][y][z]+'</i>; ';
-			}
-		    }
-		}
-		else{
-		    x.innerHTML += i+': '+'<i>'+myjson[i]+'</i>; ';
-		}
-	    }
-	}
-    else{
-	var x = document.getElementById("content2");
-	x.innerHTML ='';
-	handler.check2 = false;
-    }
+	onMyFeatureSelect(map,myjson,3751,-1802)
     }
 
 };
@@ -138,22 +62,15 @@ function onFeatureSelect(feature)
     z.panMapIfOutOfView = true;
     map.addPopup(z);
 }
-function onMyFeatureSelect(feature)
+function onMyFeatureSelect(feature, json, x, y)
 {
+//    str = "";
+//    x = 1;
     z = new OpenLayers.Popup.FramedCloud(
 	"test",
-        new OpenLayers.LonLat(15555, -2334),  // Always should be at the center of the map, not the center of viewport.
+        new OpenLayers.LonLat(x, y),  // Always should be at the center of the map, not the center of viewport.
 	new OpenLayers.Size(640,480),
-	"<pre><b><center>Temple</center></b>\n"+
-	    "period: 16th century\n"+
-	    "location: 13.80338 - 77.61067\n"+
-	    "sthapati: Shivakumar\n"+
-	    "innerloc: MaharangaMandapa\n"+
-	    "size: 311110px X 4668 px\n"+
-	    "narrative: Narrative\n"+
-	    "muralTradition: XYZ\n"+
-	    "muralTechnique: Foo\n"+
-	    "muralContent: Bar</pre>"
+	"<pre>"+JSON.stringify(json,null,'\t')+"</pre>"
 	,null,true);
     feature.popup = z;
     z.panMapIfOutOfView = true;
@@ -309,7 +226,7 @@ function myfeatureadded(myObj)
     console.log(labelFeature.attributes['name']);
     if(labelFeature.attributes['name'])
     {
-	console.log("here");
+	//console.log(myObj.feature.geometry.bounds.top); Use this to get the bounds.
 	map.addLayer(vectorLayer);
 	vectorLayer.drawFeature(labelFeature);
 	vectorLayer.addFeatures([labelFeature]);
