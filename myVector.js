@@ -227,9 +227,15 @@ function myfeatureadded(myObj)
     if(labelFeature.attributes['name'])
     {
 	//console.log(myObj.feature.geometry.bounds.top); Use this to get the bounds.
+	top = myObj.feature.geometry.bounds.top;
+	bottom = myObj.feature.geometry.bounds.bottom;
+	left = myObj.feature.geometry.bounds.left;
+	right = myObj.feature.geometry.bounds.right;
+	name = labelFeature.attributes['name'];
 	map.addLayer(vectorLayer);
 	vectorLayer.drawFeature(labelFeature);
 	vectorLayer.addFeatures([labelFeature]);
+	annotationTree();
     }
     else
 	    myObj.feature.destroy();
