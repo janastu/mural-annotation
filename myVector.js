@@ -10,6 +10,7 @@ var box_extents = [
 var box_extents1 = [
     [4263.0000, -1630.33337, 4559.0000, -1342.33337]
 ];
+var myJSON = {};
 // avoid pink tiles
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
@@ -64,8 +65,6 @@ function onFeatureSelect(feature)
 }
 function onMyFeatureSelect(feature, json, x, y)
 {
-//    str = "";
-//    x = 1;
     z = new OpenLayers.Popup.FramedCloud(
 	"test",
         new OpenLayers.LonLat(x, y),  // Always should be at the center of the map, not the center of viewport.
@@ -226,8 +225,8 @@ function myfeatureadded(myObj)
     console.log(labelFeature.attributes['name']);
     if(labelFeature.attributes['name'])
     {
-	//console.log(myObj.feature.geometry.bounds.top); Use this to get the bounds.
-	top = myObj.feature.geometry.bounds.top;
+	console.log(myObj.feature.geometry.bounds.top); //Use this to get the bounds.
+	topValue = myObj.feature.geometry.bounds.top;
 	bottom = myObj.feature.geometry.bounds.bottom;
 	left = myObj.feature.geometry.bounds.left;
 	right = myObj.feature.geometry.bounds.right;
@@ -236,6 +235,15 @@ function myfeatureadded(myObj)
 	vectorLayer.drawFeature(labelFeature);
 	vectorLayer.addFeatures([labelFeature]);
 	annotationTree();
+	attribs = {
+	    "top": topValue,
+	    "bottom": bottom,
+	    "right": right,
+	    "left": left,
+	    "name": name,
+	    "character": $("#character-value").text(),
+	    "material": $("#material-value").text()
+	};
     }
     else
 	    myObj.feature.destroy();
