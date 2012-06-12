@@ -39,7 +39,9 @@
 	  function treeClose()
 	  {
 	  $('#annotation-tree').hide();
-	  myJSON['attribs'] = attribs;
+	  attribs["character"] =  $("#character-value").text();
+	  attribs["material"] = $("#material-value").text();
+	  myJSON.push(attribs);
 	  }
 	</script>
       </head>
@@ -71,6 +73,7 @@
   <script type="text/javascript" >resize()</script>
   <div id="annotation-tree">
     <input type="button" value="close" onClick="treeClose();"/>
+    <input type="button" value="publish" onClick="publish();"/>
     <div id="infovis">
       <form>
 	<div>Character: <span id="character-value"></span></div>

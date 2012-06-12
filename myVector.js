@@ -10,7 +10,7 @@ var box_extents = [
 var box_extents1 = [
     [4263.0000, -1630.33337, 4559.0000, -1342.33337]
 ];
-var myJSON = {};
+var myJSON = [];
 // avoid pink tiles
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
@@ -240,9 +240,7 @@ function myfeatureadded(myObj)
 	    "bottom": bottom,
 	    "right": right,
 	    "left": left,
-	    "name": name,
-	    "character": $("#character-value").text(),
-	    "material": $("#material-value").text()
+	    "name": name
 	};
     }
     else
@@ -305,3 +303,12 @@ function allowPan(element) {
     }
     }
 onresize=function(){ resize();};
+function publish()
+{
+    console.log(myJSON);
+    $.post("http://192.168.100.56:82/submit", JSON.stringify(myJSON), function(data)
+	   {
+	       alert(data);
+	   }
+	  );
+}
