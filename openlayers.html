@@ -42,6 +42,7 @@
 	  attribs["character"] =  $("#character-value").text();
 	  attribs["material"] = $("#material-value").text();
 	  myJSON.push(attribs);
+	  $("#publish").attr("disbaled", false);
 	  }
 	</script>
       </head>
@@ -69,11 +70,11 @@
 	<label for="boxToggle">Tag this</label>
       </li>
     </ul>
+    <input type="button" id="publish" value="publish" onClick="publish();" disabled="true"/>
   </div>
   <script type="text/javascript" >resize()</script>
   <div id="annotation-tree">
     <input type="button" value="close" onClick="treeClose();"/>
-    <input type="button" value="publish" onClick="publish();"/>
     <div id="infovis">
       <form>
 	<div>Character: <span id="character-value"></span></div>

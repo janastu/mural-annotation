@@ -131,11 +131,12 @@ function init(){
     drawControls['select'].activate();
     addLabel('3759.0000','-1274.33337','Face');
     addLabel('3719','-1771','Jewelery');
-    addLabel('4263.0000','-1630.33337', 'Video')
+    addLabel('4263.0000','-1345.33337', 'Video')
     map.addControl(new OpenLayers.Control.PanZoomBar());
     map.addControl(new OpenLayers.Control.MousePosition());
     map.addControl(new OpenLayers.Control.MouseDefaults());
     map.addControl(new OpenLayers.Control.KeyboardDefaults());
+    map.addControl(new OpenLayers.Control.LayerSwitcher());
     map.zoomToExtent( mapBounds );
     document.getElementById('noneToggle').checked = true;
 }
@@ -146,26 +147,27 @@ function addLabel(left, top, name)
             
             vectorLayer = new OpenLayers.Layer.Vector("Simple Geometry", {
                 styleMap: new OpenLayers.StyleMap({'default':{
-                    strokeColor: "#00FF00",
+                    strokeColor: "#000",
                     strokeOpacity: 1,
                     strokeWidth: 3,
-                    fillColor: "#FF5500",
-                    fillOpacity: 0.5,
-                    pointRadius: 6,
+                    fillColor: "#FFF",
+                    fillOpacity: 1,
+                    pointRadius: 2,
                     pointerEvents: "visiblePainted",
                     // label with \n linebreaks
                     label : "${name}\n",
 //\nage: ${age}",
                     
-                    fontColor: "${favColor}",
+                    fontColor: "#000",
                     fontSize: "16px",
-                    fontFamily: "Courier New, monospace",
+                    fontFamily: "Georgia, Serif",
                     fontWeight: "bold",
                     labelAlign: "${align}",
                     labelXOffset: "${xOffset}",
                     labelYOffset: "${yOffset}",
                     labelOutlineColor: "white",
-                    labelOutlineWidth: 3
+                    labelOutlineWidth: 3,
+		    border: "#000"
                 }}),
                 renderers: renderer
             });
@@ -191,20 +193,20 @@ function myfeatureadded(myObj)
             
             vectorLayer = new OpenLayers.Layer.Vector("Simple Geometry", {
                 styleMap: new OpenLayers.StyleMap({'default':{
-                    strokeColor: "#00FF00",
+                    strokeColor: "#000",
                     strokeOpacity: 1,
                     strokeWidth: 3,
                     fillColor: "#FF5500",
                     fillOpacity: 0.5,
-                    pointRadius: 6,
+                    pointRadius: 2,
                     pointerEvents: "visiblePainted",
                     // label with \n linebreaks
                     label : "${name}\n",
 //\nage: ${age}",
                     
-                    fontColor: "${favColor}",
+                    fontColor: "#000",
                     fontSize: "16px",
-                    fontFamily: "Courier New, monospace",
+                    fontFamily: "Georgia, Serif",
                     fontWeight: "bold",
                     labelAlign: "${align}",
                     labelXOffset: "${xOffset}",
