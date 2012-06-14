@@ -1,29 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       <head>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
 	<script type="text/javascript">
-	  function annotationTree() {    
-	  $('#annotation-tree').show();
-	  }
-
-	  function closeForm() {
-	  $('#annotation-tree').hide();
-	  }
-
-	  function faceOrnament() {
-	  x = document.getElementsByClassName('annotate');
-	  if(x[0].checked == true && x[0].value == 'face') {
-	  $('face').show();
-	  }
-	  else if (x[1].checked == true && x[1].value == 'ornament') {
-	  $('ornament').show();
-	  }
-	  else {
-	  alert('Please select any one of the option')
-	  }
+	  function annotationTree() {
+	  tree_div = document.getElementById('annotation-tree');
+	  tree_div.style.display = 'block';
 	  }
 	</script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./jit.js"></script>
+	<script type="text/javascript" src="./tree.js"></script>
 	<style type='text/css'>
 	  #annotation-tree {
 	  position:fixed;
@@ -35,13 +21,10 @@
 	  display:none;
 	  z-index:99999;                                         
           }
-	  #face, #ornament {
-	  display:none;
-	  }
 	</style>
 	<title>Lepakshi Mural</title>
 	<meta http-equiv='imagetoolbar' content='no'/>
-	<!-- <link rel="stylesheet" type="text/css" href="./tree.css"></link> -->
+	<link rel="stylesheet" type="text/css" href="./tree.css"></link>
 	<style type="text/css"> v\:* {behavior:url(#default#VML);}
 	  html, body {padding: 0; height: 100%; width: 100%; font-family: 'Lucida Grande',Geneva,Arial,Verdana,sans-serif; }
 	  body { margin: 10px; background: #fff; }
@@ -87,7 +70,7 @@
 	<label for="boxToggle">Tag this</label>
       </li>
     </ul>
-    <input type="button" id="publish" value="publish" onClick="publish();" disabled="true"/>
+    <input type="button" value="publish" onClick="publish();" id="publish" disabled="true"/>
   </div>
   <script type="text/javascript" >resize()</script>
   <div id="annotation-tree">

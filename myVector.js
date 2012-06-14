@@ -11,6 +11,9 @@ var box_extents1 = [
     [4263.0000, -1630.33337, 4559.0000, -1342.33337]
 ];
 var myJSON = [];
+var ans = {
+    ans: []
+};
 // avoid pink tiles
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
@@ -76,6 +79,9 @@ function onMyFeatureSelect(feature, json, x, y)
     map.addPopup(z);
 }
 function init(){
+    $.get("http://192.168.100.56:82/fetch", function(data){
+	ans.ans = JSON.parse(data);
+    });
     var options = {
 	controls: [],
 	maxExtent: new OpenLayers.Bounds(  0.0, -4668.0, 31110.0, 0.0 ),
