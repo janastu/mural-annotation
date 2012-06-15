@@ -79,9 +79,6 @@ function onMyFeatureSelect(feature, json, x, y)
     map.addPopup(z);
 }
 function init(){
-    $.get("http://192.168.100.56:82/fetch", function(data){
-	ans.ans = JSON.parse(data);
-    });
     var options = {
 	controls: [],
 	maxExtent: new OpenLayers.Bounds(  0.0, -4668.0, 31110.0, 0.0 ),
@@ -89,7 +86,18 @@ function init(){
 	numZoomLevels: 8
     };
     map = new OpenLayers.Map('map', options);
-    
+    $.get("http://192.168.100.56:82/fetch", function(data){
+	if (data.length != 0)
+	{
+	    ans.ans = JSON.parse(data);
+	    for(var i in ans.ans)
+	    {
+		makeBoxes(ans.ans[i]);
+	    }
+
+	}
+
+    });    
     var layer = new OpenLayers.Layer.TMS( "TMS Layer","",
 					  {  url: '', serviceVersion: '.', layername: '.', alpha: true,
 					     type: 'png', getURL: overlay_getTileURL 
@@ -114,8 +122,8 @@ function init(){
         box = new OpenLayers.Feature.Vector(bounds.toGeometry());
         box3.addFeatures(box);
     }
-    map.addLayers([box2, box3]);
-
+     map.addLayers([box2, box3]);
+    
     selectControl = new OpenLayers.Control.SelectFeature(box3,
 							 {onSelect: onFeatureSelect});
     
@@ -137,7 +145,7 @@ function init(){
     drawControls['select'].activate();
     addLabel('3759.0000','-1274.33337','Face');
     addLabel('3719','-1771','Jewelery');
-    addLabel('4263.0000','-1345.33337', 'Video')
+    addLabel('4263.0000','-1345.33337', 'Video');    
     map.addControl(new OpenLayers.Control.PanZoomBar());
     map.addControl(new OpenLayers.Control.MousePosition());
     map.addControl(new OpenLayers.Control.MouseDefaults());
@@ -172,9 +180,8 @@ function addLabel(left, top, name)
                     labelXOffset: "${xOffset}",
                     labelYOffset: "${yOffset}",
                     labelOutlineColor: "white",
-                    labelOutlineWidth: 3,
-		    border: "#000"
-                }}),
+                    labelOutlineWidth: 3
+		}}),
                 renderers: renderer
             });
 
@@ -189,6 +196,16 @@ function addLabel(left, top, name)
     vectorLayer.drawFeature(labelFeature);
     vectorLayer.addFeatures([labelFeature]);
 }
+    function makeBoxes(x)
+{
+    
+    box4 = new OpenLayers.Layer.Vector( "Tags");
+    bounds = new OpenLayers.Bounds(x['left'], x['bottom'], x['right'], x['top']);
+    box = new OpenLayers.Feature.Vector(bounds.toGeometry());
+    box4.addFeatures(box);
+    map.addLayer(box4); 
+    addLabel(x['left'],x['top'],x['name']);
+    }	
 function onmouse(data){
     console.log(data);
 }
