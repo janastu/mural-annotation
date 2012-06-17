@@ -12,7 +12,9 @@ var box_extents1 = [
 ];
 var myJSON = [];
 var ans = {
-    ans: []
+    ans: [],
+    count: 0
+    
 };
 // avoid pink tiles
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
@@ -57,6 +59,46 @@ var handler={
 };
 function onFeatureSelect(feature)
 {
+    for(var i in ans.ans)
+    {
+	if(feature.geometry.bounds['left'] == ans.ans[i]['left'] && feature.geometry.bounds['right'] == ans.ans[i]['right'] && feature.geometry.bounds['top'] == ans.ans[i]['top'] && feature.geometry.bounds['bottom'] == ans.ans[i]['bottom'])
+	{
+	    str = {};
+	    if(ans.ans[i]['character'])
+		str['character'] = ans.ans[i]['character'];
+	    else
+	    {
+		str['material'] = ans.ans[i]['material'];
+	//	str['jewellery'] = ans.ans[i]['jewellery']
+	    }
+	    z = new OpenLayers.Popup.FramedCloud(
+		"test",
+		feature.geometry.getBounds().getCenterLonLat(),
+		new OpenLayers.Size(640,480),
+		JSON.stringify(str,null,'  '),null,true);
+	    feature.popup = z;
+	    z.panMapIfOutOfView = true;
+	    map.addPopup(z);
+	    break;
+	}
+	else{
+	    if(i == ans.count-1)
+	    {
+		z = new OpenLayers.Popup.FramedCloud(
+		    "test",
+		    feature.geometry.getBounds().getCenterLonLat(),
+		    new OpenLayers.Size(640,480),
+		    '<iframe width="480" height="360" src="http://www.youtube.com/embed/WwNUnmZ_aww" frameborder="0" allowfullscreen></iframe>',null,true);
+		feature.popup = z;
+		z.panMapIfOutOfView = true;
+		map.addPopup(z);
+	    }
+	}
+    }
+
+}
+function onFeatureSelect1(feature)
+{
     z = new OpenLayers.Popup.FramedCloud(
 	"test",
 	feature.geometry.getBounds().getCenterLonLat(),
@@ -72,7 +114,7 @@ function onMyFeatureSelect(feature, json, x, y)
 	"test",
         new OpenLayers.LonLat(x, y),  // Always should be at the center of the map, not the center of viewport.
 	new OpenLayers.Size(640,480),
-	"<pre>"+JSON.stringify(json,null,'\t')+"</pre>"
+	"<pre>"+JSON.stringify(json,null,'  ')+"</pre>"
 	,null,true);
     feature.popup = z;
     z.panMapIfOutOfView = true;
@@ -92,6 +134,7 @@ function init(){
 	    ans.ans = JSON.parse(data);
 	    for(var i in ans.ans)
 	    {
+		ans.count+=1;
 		makeBoxes(ans.ans[i]);
 	    }
 
@@ -199,16 +242,14 @@ function addLabel(left, top, name)
     function makeBoxes(x)
 {
     
-    box4 = new OpenLayers.Layer.Vector( "Tags");
     bounds = new OpenLayers.Bounds(x['left'], x['bottom'], x['right'], x['top']);
     box = new OpenLayers.Feature.Vector(bounds.toGeometry());
-    box4.addFeatures(box);
-    map.addLayer(box4); 
+    box3.addFeatures(box);
     addLabel(x['left'],x['top'],x['name']);
     }	
-function onmouse(data){
-    console.log(data);
-}
+// function onmouse(data){
+//     console.log(data);
+// }
 function myfeatureadded(myObj)
 {
         var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
@@ -247,10 +288,8 @@ function myfeatureadded(myObj)
 	favColor: 'blue',
     };
     labelFeature.attributes['name'] = prompt("Enter a name");
-    console.log(labelFeature.attributes['name']);
     if(labelFeature.attributes['name'])
     {
-	console.log(myObj.feature.geometry.bounds.top); //Use this to get the bounds.
 	topValue = myObj.feature.geometry.bounds.top;
 	bottom = myObj.feature.geometry.bounds.bottom;
 	left = myObj.feature.geometry.bounds.left;
@@ -330,10 +369,9 @@ function allowPan(element) {
 onresize=function(){ resize();};
 function publish()
 {
-    console.log(myJSON);
     $.post("http://192.168.100.56:82/submit", JSON.stringify(myJSON), function(data)
 	   {
-	       alert(data);
+	       alert("Posted");
 	   }
 	  );
 }
