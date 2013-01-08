@@ -110,11 +110,14 @@ function onFeatureSelect1(feature)
 }
 function onMyFeatureSelect(feature, json, x, y)
 {
+  json = "<pre><code>"+ JSON.stringify(json, null, ' ') +"</code></pre>";
+  json = json.replace(/\{\n/g, '').replace(/\}[,]*/g, '').replace(/\[/g, '').replace(/\][,]/g, '').
+    replace(/\"/g, '');
     z = new OpenLayers.Popup.FramedCloud(
 	"test",
         new OpenLayers.LonLat(x, y),  // Always should be at the center of the map, not the center of viewport.
 	new OpenLayers.Size(640,480),
-	"<pre>"+JSON.stringify(json,null,'  ')+"</pre>"
+	json
 	,null,true);
     feature.popup = z;
     z.panMapIfOutOfView = true;
@@ -129,6 +132,7 @@ function init(){
     };
     map = new OpenLayers.Map('map', options);
     $.get("http://192.168.100.56:82/fetch", function(data){
+      return;
 	if (data.length != 0)
 	{
 	    ans.ans = JSON.parse(data);
@@ -171,7 +175,7 @@ function init(){
 							 {onSelect: onFeatureSelect});
     
     drawControls = {
-	box : new OpenLayers.Control.DrawFeature(boxes,
+	    box : new OpenLayers.Control.DrawFeature(boxes,
 				       OpenLayers.Handler.RegularPolygon, {
 					   handlerOptions: {
 					       sides: 4,
@@ -179,8 +183,9 @@ function init(){
 					   }
 				       }
 						),
-	select: selectControl
+	    select: selectControl
     };
+
     map.zoomToExtent( mapBounds );	
     for(var key in drawControls){
 	map.addControl(drawControls[key]);
@@ -195,7 +200,7 @@ function init(){
     map.addControl(new OpenLayers.Control.KeyboardDefaults());
     map.addControl(new OpenLayers.Control.LayerSwitcher());
     map.zoomToExtent( mapBounds );
-    document.getElementById('noneToggle').checked = true;
+    //document.getElementById('noneToggle').checked = true;
 }
 function addLabel(left, top, name)
 {
@@ -310,17 +315,20 @@ function myfeatureadded(myObj)
     else
 	    myObj.feature.destroy();
 }
+
 function toggleControl(element) {
-    for(key in drawControls) {
-        var control = drawControls[key];
-        if(element.value == key && element.checked) {
-            control.activate();
-	}
-	else {
-            control.deactivate();
-        }
+  var id = $(element).attr('id');
+  var control_name = id.split('-')[1];
+  for(var control in drawControls) {
+    if(control === control_name) {
+      drawControls[control].activate();
     }
+    else {
+      drawControls[control].deactivate();
+    }
+  }
 }
+
 function overlay_getTileURL(bounds) {
     var res = this.map.getResolution();
     var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
@@ -353,10 +361,10 @@ function resize() {
     var map = document.getElementById("map");  
     var header = document.getElementById("header");  
     var subheader = document.getElementById("subheader");  
-    map.style.height = (getWindowHeight()-80) +"px";
-    map.style.width = (getWindowWidth()-20) + "px";
-    header.style.width = (getWindowWidth()-20) + "px";
-    subheader.style.width = (getWindowWidth()-20) + "px";
+    map.style.height = (getWindowHeight()-180) +"px";
+    map.style.width = (getWindowWidth()-60) + "px";
+    //header.style.width = (getWindowWidth()-60) + "px";
+    subheader.style.width = (getWindowWidth()-60) + "px";
     if (map.updateSize) { map.updateSize(); };
 } 
 function allowPan(element) {
@@ -369,9 +377,7 @@ function allowPan(element) {
 onresize=function(){ resize();};
 function publish()
 {
-    $.post("http://192.168.100.56:82/submit", JSON.stringify(myJSON), function(data)
-	   {
-	       alert("Posted");
-	   }
-	  );
+    $.post("http://192.168.100.56:82/submit", JSON.stringify(myJSON), function(data) {
+	       $('#posted').show();
+	   });
 }
