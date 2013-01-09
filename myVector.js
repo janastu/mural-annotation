@@ -1,7 +1,7 @@
 var map, vectorLayer;
 var mapBounds = new OpenLayers.Bounds( 0.0, -4668.0, 31110.0, 0.0);
 var mapMinZoom = 0;
-var mapMaxZoom = 7;      
+var mapMaxZoom = 7;
 var boxes;
 var box_extents = [
     [3759.0000, -1614.33337, 4079.0000, -1274.33337],
@@ -14,8 +14,9 @@ var myJSON = [];
 var ans = {
     ans: [],
     count: 0
-    
+
 };
+var user;
 // avoid pink tiles
 OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
 OpenLayers.Util.onImageLoadErrorColor = "transparent";
@@ -51,7 +52,7 @@ var handler={
 		{"jewelery":"Pendant"},
 		{"Material":"Silver"}
 	    ],
-		      "size": "50px X 90px"  
+		      "size": "50px X 90px"
 		     };
 	onMyFeatureSelect(map,myjson,3751,-1802)
     }
@@ -131,7 +132,7 @@ function init(){
 	numZoomLevels: 8
     };
     map = new OpenLayers.Map('map', options);
-    $.get("http://192.168.100.56:82/fetch", function(data){
+    $.get(config.indexer+"/fetch", function(data){
       return;
 	if (data.length != 0)
 	{
@@ -144,20 +145,20 @@ function init(){
 
 	}
 
-    });    
+    });
     var layer = new OpenLayers.Layer.TMS( "TMS Layer","",
 					  {  url: '', serviceVersion: '.', layername: '.', alpha: true,
-					     type: 'png', getURL: overlay_getTileURL 
-					  });			
+					     type: 'png', getURL: overlay_getTileURL
+					  });
     boxes = new OpenLayers.Layer.Vector( "Boxes" );
     map.addLayers([layer, boxes]);
-    
+
     boxes.events.register('featureadded', boxes, myfeatureadded);
     box2 = new OpenLayers.Layer.Vector( "Boxes" );
     for (var i = 0; i < box_extents.length; i++) {
         ext = box_extents[i];
         bounds = OpenLayers.Bounds.fromArray(ext);
-                    
+
         box = new OpenLayers.Feature.Vector(bounds.toGeometry());
         box2.addFeatures(box);
     }
@@ -165,15 +166,15 @@ function init(){
     for (var i = 0; i < box_extents1.length; i++) {
         ext = box_extents1[i];
         bounds = OpenLayers.Bounds.fromArray(ext);
-                    
+
         box = new OpenLayers.Feature.Vector(bounds.toGeometry());
         box3.addFeatures(box);
     }
      map.addLayers([box2, box3]);
-    
+
     selectControl = new OpenLayers.Control.SelectFeature(box3,
 							 {onSelect: onFeatureSelect});
-    
+
     drawControls = {
 	    box : new OpenLayers.Control.DrawFeature(boxes,
 				       OpenLayers.Handler.RegularPolygon, {
@@ -186,14 +187,14 @@ function init(){
 	    select: selectControl
     };
 
-    map.zoomToExtent( mapBounds );	
+    map.zoomToExtent( mapBounds );
     for(var key in drawControls){
 	map.addControl(drawControls[key]);
     }
     drawControls['select'].activate();
     addLabel('3759.0000','-1274.33337','Face');
     addLabel('3719','-1771','Jewelery');
-    addLabel('4263.0000','-1345.33337', 'Video');    
+    addLabel('4263.0000','-1345.33337', 'Video');
     map.addControl(new OpenLayers.Control.PanZoomBar());
     map.addControl(new OpenLayers.Control.MousePosition());
     map.addControl(new OpenLayers.Control.MouseDefaults());
@@ -206,7 +207,7 @@ function addLabel(left, top, name)
 {
         var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
             renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
-            
+
             vectorLayer = new OpenLayers.Layer.Vector("Simple Geometry", {
                 styleMap: new OpenLayers.StyleMap({'default':{
                     strokeColor: "#000",
@@ -219,7 +220,7 @@ function addLabel(left, top, name)
                     // label with \n linebreaks
                     label : "${name}\n",
 //\nage: ${age}",
-                    
+
                     fontColor: "#000",
                     fontSize: "16px",
                     fontFamily: "Georgia, Serif",
@@ -246,12 +247,12 @@ function addLabel(left, top, name)
 }
     function makeBoxes(x)
 {
-    
+
     bounds = new OpenLayers.Bounds(x['left'], x['bottom'], x['right'], x['top']);
     box = new OpenLayers.Feature.Vector(bounds.toGeometry());
     box3.addFeatures(box);
     addLabel(x['left'],x['top'],x['name']);
-    }	
+    }
 // function onmouse(data){
 //     console.log(data);
 // }
@@ -259,7 +260,7 @@ function myfeatureadded(myObj)
 {
         var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
             renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
-            
+
             vectorLayer = new OpenLayers.Layer.Vector("Simple Geometry", {
                 styleMap: new OpenLayers.StyleMap({'default':{
                     strokeColor: "#000",
@@ -272,7 +273,7 @@ function myfeatureadded(myObj)
                     // label with \n linebreaks
                     label : "${name}\n",
 //\nage: ${age}",
-                    
+
                     fontColor: "#000",
                     fontSize: "16px",
                     fontFamily: "Georgia, Serif",
@@ -292,7 +293,8 @@ function myfeatureadded(myObj)
         align: 'cm',
 	favColor: 'blue',
     };
-    labelFeature.attributes['name'] = prompt("Enter a name");
+    labelFeature.attributes['name'] = prompt("Enter a label for the annotation..");
+	user = prompt("Enter your name");
     if(labelFeature.attributes['name'])
     {
 	topValue = myObj.feature.geometry.bounds.top;
@@ -335,7 +337,7 @@ function overlay_getTileURL(bounds) {
     var y = Math.round((bounds.bottom - this.maxExtent.bottom) / (res * this.tileSize.h));
     var z = this.map.getZoom();
     if (x >= 0 && y >= 0) {
-	return this.url + z + "/" + x + "/" + y + "." + this.type;				
+	return this.url + z + "/" + x + "/" + y + "." + this.type;
     } else {
 	return "http://www.maptiler.org/img/none.png";
     }
@@ -357,16 +359,16 @@ function getWindowWidth() {
     return 0;
 }
 
-function resize() {  
-    var map = document.getElementById("map");  
-    var header = document.getElementById("header");  
-    var subheader = document.getElementById("subheader");  
+function resize() {
+    var map = document.getElementById("map");
+    var header = document.getElementById("header");
+    var subheader = document.getElementById("subheader");
     map.style.height = (getWindowHeight()-180) +"px";
     map.style.width = (getWindowWidth()-60) + "px";
     //header.style.width = (getWindowWidth()-60) + "px";
     subheader.style.width = (getWindowWidth()-60) + "px";
     if (map.updateSize) { map.updateSize(); };
-} 
+}
 function allowPan(element) {
     var stop = !element.checked;
     for(var key in drawControls){
@@ -377,7 +379,24 @@ function allowPan(element) {
 onresize=function(){ resize();};
 function publish()
 {
-    $.post("http://192.168.100.56:82/submit", JSON.stringify(myJSON), function(data) {
-	       $('#posted').show();
-	   });
+	if(myJSON.length < 1){
+		return;}
+	for(var i in myJSON){
+		jString = JSON.stringify(myJSON[i]).replace(/\{/g, '').replace(/\}[,]*/g, '').replace(/\[/g, '').replace(/\][,]/g, '').
+    replace(/\"/g, '');
+		myJSON[i].text = ' annotated '+window.location.href+"#[top="+myJSON[i].top+",bottom="+myJSON[i].bottom+",left="+myJSON[i].left+",right="+myJSON[i].right+"] as "+myJSON[i].name+" "+jString+" #swtr"; //The string which gets posted as a tweet.
+		myJSON[i].text = encodeURIComponent(myJSON[i].text);
+		myJSON[i].user = user; // User need not know the modification to the JSON.
+		myJSON[i].title = 'Annotation for '+window.location.href;
+	}
+	$.post(config.indexer+'/submit', JSON.stringify(myJSON),function(){
+		$.post(config.postTweetUrl, {"data":JSON.stringify(myJSON)}, function(data) {
+	    $('#posted').show();
+			myJSON = [];
+	  });
+	});
+}
+var config = {
+	'postTweetUrl':'http://127.0.0.1:5000/add',
+	'indexer':'http://192.168.100.56:82'
 }
