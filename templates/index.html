@@ -2,9 +2,32 @@
 <html>
   <meta charset="utf-8">
   <head>
-	<title>Lepakshi Mural</title>
+	<script type="text/javascript">
+	  function annotationTree() {
+      $('#annotation-tree').modal();
+	  }
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+	<script type="text/javascript" src="http://backbonejs.org/backbone-min.js"></script>
+	<script type="text/javascript" src="static/jit.js"></script>
+	<script type="text/javascript" src="static/tree.js"></script>
+	<style type='text/css'>
+	  /*#annotation-tree {
+	  position:fixed;
+	  top:0px;
+	  left:0px;
+	  width:100%;
+	  height:100%;
+	  background-color:rgba(0, 0, 0, 0.5);
+	  display:none;
+	  z-index:99999;
+          }*/
+  </style>
+	<title>Flask Lepakshi Mural</title>
 	<meta http-equiv='imagetoolbar' content='no'/>
-	<link rel="stylesheet" type="text/css" href="bootstrap.css"></link>
+	<link rel="stylesheet" type="text/css" href="static/bootstrap.css"></link>
+	<!--link rel="stylesheet" type="text/css" href="./tree.css"></link-->
 	<style type="text/css"> v\:* {behavior:url(#default#VML);}
     label { display: inline;}
 	  h1 { margin: 0; padding: 6px; border:0; font-size: 20pt; }
@@ -12,8 +35,21 @@
 	  #subheader { height: 12px; text-align: right; font-size: 10px; color: #555;}
 	  #map {border: 1px solid #888;}
 	</style>
+	<script src="http://www.openlayers.org/api/2.11/OpenLayers.js" type="text/javascript"></script>
+	<script type="text/javascript" src="static/myVector.js"></script>
+	<script type="text/javascript" src="static/bootstrap.js"></script>
+	<script type="text/javascript">
+	  function treeClose() {
+      $('#annotation-tree').modal('hide');
+      attribs["character"] =  $("#character-value").text();
+      attribs["material"] = $("#material-value").text();
+      myJSON.push(attribs);
+      $("#publish").attr("disabled", false);
+	  }
+	</script>
 </head>
-<body onload="init();"> 
+<body onload="init();">
+  <!--div id="header"><h1>Lepakshi Mural</h1></div-->
   <div class="fluid-container">
 
     <div class="navbar">
@@ -71,6 +107,7 @@
 
   </div>
 
+  <script type="text/javascript" >resize();</script>
 
   <div id="annotation-tree" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
@@ -86,7 +123,7 @@
           <ul>
             <li><b>Character:</b> <span id="character-value"></span></li>
             <li>
-              <b>Ornament:</b> 
+              <b>Ornament:</b>
               <ul>
                 <li><b>Material:</b> <span id="material-value"></span></li>
                 <li><b>Jewellery:</b> <span id="jewellery-value"></span></li>
@@ -102,12 +139,6 @@
     </div>
   </div>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-	<script type="text/javascript" src="jit.js"></script>
-	<script type="text/javascript" src="tree.js"></script>
-  <script src="http://www.openlayers.org/api/2.11/OpenLayers.js" type="text/javascript"></script>
-	<script type="text/javascript" src="myVector.js"></script>
-	<script type="text/javascript" src="bootstrap.js"></script>
 	<script type="text/javascript">
     function annotationTree() {
       $('#annotation-tree').modal();
@@ -140,5 +171,20 @@
 	  }
 	</script>
   
+	{% if json %}
+	<script type="text/javascript">
+
+		$.get({{ json|string|safe }} , function(data){
+		console.log(data);
+		ht.loadJSON(data);
+    //compute positions and plot.
+    ht.refresh();
+    //end
+    ht.controller.onComplete();
+
+}, 'json');
+	</script>
+	{% endif %}
+
 </body>
 </html>

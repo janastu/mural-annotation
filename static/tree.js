@@ -1,11 +1,11 @@
-var labelType, useGradients, nativeTextSupport, animate;
+var labelType, useGradients, nativeTextSupport, animate, ht;
 
 (function() {
     var ua = navigator.userAgent,
     iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
     typeOfCanvas = typeof HTMLCanvasElement,
     nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-    textSupport = nativeCanvasSupport 
+    textSupport = nativeCanvasSupport
         && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
     //I'm setting this based on the fact that ExCanvas provides text support for IE
     //and that as of today iPhone/iPad current text support is lame
@@ -87,7 +87,7 @@ function inits(){
                     },
                     "children": []
 		}]
-            }, 
+            },
     // Languages
 	    {
 		"id": "ornament",
@@ -100,23 +100,23 @@ function inits(){
 		    "id": "jewellery",
 		    "name": "Jewellery",
 		    "data": {
-			"band": "Ornament",
-			"relation": "project_murals.html"
+			"band": "Ornament"
+			// "relation": "project_murals.html"
 		    },
 		    "children": [{
 			"id": "ear-ring",
 			"name": "Ear-ring",
 			"data": {
-			    "band": "Jewellery",
-			    "relation": "project_murals.html"
+			    "band": "Jewellery"
+			    // "relation": "project_murals.html"
 			},
 			"children": []
 		    },{
 			"id": "ring",
 			"name": "Ring",
 			"data": {
-			    "band": "Jewellery",
-			    "relation": "project_murals.html"
+			    "band": "Jewellery"
+			    // "relation": "project_murals.html"
 			},
 			"children": []
 		    },{
@@ -233,9 +233,9 @@ function inits(){
     //end
     var infovis = document.getElementById('infovis');
     var w = infovis.offsetWidth + 500; var h = infovis.offsetHeight + 385;
-    
+
     //init Hypertree
-    var ht = new $jit.Hypertree({
+    ht = new $jit.Hypertree({
 	//id of the visualization container
 	injectInto: 'infovis',
 	//canvas width and height
@@ -253,17 +253,17 @@ function inits(){
 	},
 
 	// On hover
-	Tips: {  
-	    enable: false,  
+	Tips: {
+	    enable: false,
 
 	    onShow: function(tip, node) {
 		ht.tips.config.offsetX = "10";
 		ht.tips.config.offsetY = "10";
 //		tip.addEventListener("click", alert('hello'), false);
  		tip.innerHTML = "<div id=\"value\" class=\"tip-title\" style=\"text-align:center;\">" + node.name + "</div>";
-//		    + node.data.relation + " style=\"color:#fff;\">" + node.name + "</a></div>";    
- 	    } 
-	},  
+//		    + node.data.relation + " style=\"color:#fff;\">" + node.name + "</a></div>";
+ 	    }
+	},
 
 	//Attach event handlers and add text to the
 	//labels. This method is only triggered on label
@@ -288,7 +288,7 @@ function inits(){
 	    ht.controller.Edge.alpha = "0.3";
             if (node._depth == 0) {
 		style.fontSize = "0.8em";
-		style.color = "#111";	    
+		style.color = "#111";
             } else if(node._depth == 1){
 		style.fontSize = "0.9em";
 		style.color = "#222";
@@ -315,134 +315,3 @@ function inits(){
 
 document.addEventListener("DOMContentLoaded", inits, false);
 
-    /* ****************************************************************************************************** */
-
-// function inits(){
-//     //init data
-//     var jsons = {
-//         "id": "narrations",
-//         "name": "Narrations",
-//         "children": [{
-// 		"id": "kannada",
-// 		"name": "Kannada",
-// 		"data": {
-//                     "band": "Narrations"
-// 		},
-// 		"children": []
-//             }, {
-// 		"id": "english",
-// 		"name": "English",
-// 		"data": {
-// 		    "band": "Narrations"
-// 		},
-// 		"children": []
-// 	    }, {
-// 		"id": "hindi",
-// 		"name": "Hindi",
-// 		"data": {
-// 		    "band": "Narrations"
-// 		},
-// 		"children": []
-// 	    }, {
-// 		"id": "tamil",
-// 		"name": "Tamil",
-// 		"data": {
-//                     "band": "Narrations"
-// 		},
-// 		"children": []
-//             }, {
-// 		"id": "bengali",
-// 		"name": "Bengli",
-// 		"data": {
-// 		    "band": "Narrations"
-// 		},
-// 		"children": []
-// 	    }, {
-// 		"id": "marathi",
-// 		"name": "Marathi",
-// 		"data": {
-// 		    "band": "Narrations"
-// 		},
-// 		"children": []
-// 	    }],
-// 	"data": {
-// 	    "relation": "index.html"
-// 	}
-//     };
-//     //end
-//     var infonar = document.getElementById('infonar');
-//     var w = infonar.offsetWidth - 0, h = infonar.offsetHeight - 0;
-    
-//     //init Hypertree
-//     var ht = new $jit.Hypertree({
-// 	//id of the visualization container
-// 	injectInto: 'infonar',
-// 	//canvas width and height
-// 	width: w,
-// 	height: h,
-// 	//Change node and edge styles such as
-// 	//color, width and dimensions.
-// 	Node: {
-//             dim: 2.5,
-//             color: "#555"
-// 	},
-// 	Edge: {
-// 	    lineWidth: 1,
-//             color: "#222"
-// 	},
-
-// 	// On hover
-// 	Tips: {  
-// 	    enable: false,  
-// 	    onShow: function(tip, node) {
-// 		ht.tips.config.offsetX = "10";
-// 		ht.tips.config.offsetY = "10";
-//  		tip.innerHTML = "<div id=\"value\" class=\"tip-title\" style=\"text-align:center;\">" + node.name + "</div>";
-// //		    + node.data.relation + " style=\"color:#fff;\">" + node.name + "</a></div>";    
-//  	    } 
-// 	},  
-
-// 	//Attach event handlers and add text to the
-// 	//labels. This method is only triggered on label
-// 	//creation
-// 	onCreateLabel: function(domElement, node){
-//             domElement.innerHTML = node.name;
-//             $jit.util.addEvent(domElement, 'click', function () {
-// 		ht.onClick(node.id, {
-//                     onComplete: function() {
-// 			ht.controller.onComplete();
-//                     }
-// 		});
-//             });
-// 	},
-// 	//Change node styles when labels are placed
-// 	//or moved.
-// 	onPlaceLabel: function(domElement, node){
-//             var style = domElement.style;
-//             style.display = '';
-//             style.cursor = 'pointer';
-// 	    ht.controller.Node.transform = false;
-// 	    ht.controller.Edge.alpha = "0.3";
-//             if (node._depth == 0) {
-// 		style.fontSize = "0.8em";
-// 		style.color = "#111";	    
-//             } else if(node._depth == 1){
-// 		style.fontSize = "0.9em";
-// 		style.color = "#222";
-//             }
-// 	    else {
-// 		style.display = 'none';
-//             }
-
-//             var left = parseInt(style.left);
-//             var w = domElement.offsetWidth;
-//             style.left = (left - w / 2) + 'px';
-// 	},
-//     });
-//     //load JSON data.
-//     ht.loadJSON(jsons);
-//     //compute positions and plot.
-//     ht.refresh();
-//     //end
-//     ht.controller.onComplete();
-// }
