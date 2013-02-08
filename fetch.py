@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import make_response
+import logging
 from logging import FileHandler
 import json
 import pymongo
@@ -23,14 +24,14 @@ def editor():
     filename = request.args['json']
   else:
     filename = 'test.json'
-    filename = os.path.join('static', filename)
-    try:
-      f = open(filename, 'r')
-    except:
-      f = open('static/test.json', 'r')
-    buf = f.read()
-    f.close()
-    return render_template('editor.html', json = buf)
+  filename = os.path.join('static', filename)
+  try:
+    f = open(filename, 'r')
+  except:
+    f = open('static/test.json', 'r')
+  buf = f.read()
+  f.close()
+  return render_template('editor.html', json = buf)
 
 @app.route('/saveJSON', methods=['POST'])
 def saveJSON():
