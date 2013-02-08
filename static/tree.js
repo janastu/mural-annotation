@@ -1,4 +1,4 @@
-var labelType, useGradients, nativeTextSupport, animate, ht;
+var labelType, useGradients, nativeTextSupport, animate, ht, tree_json;
 
 (function() {
     var ua = navigator.userAgent,
@@ -13,224 +13,19 @@ var labelType, useGradients, nativeTextSupport, animate, ht;
     nativeTextSupport = labelType == 'Native';
     useGradients = nativeCanvasSupport;
     animate = !(iStuff || !nativeCanvasSupport);
+
+    //load JSON data.
+    // FIXME: the url is hardcoded, maybe you have to change it
+    // if the file is a variable one
+    $.getJSON('static/old.json', function(json) {
+      console.log('json', json);
+      tree_json = json;
+      inits();
+    });
+
 })();
 
-function inits(){
-    //init data
-    var json = {
-        "id": "characteristics",
-        "name": "Characteristics",
-        "children": [
-	    // Location
-	    {
-		"id": "character",
-		"name": "Character",
-		"data": {
-                    "band": "Characteristics",
-                    "relation": "coordinators.html"
-		},
-		"children": [{
-                    "id": "shiva",
-                    "name": "Shiva",
-                    "data": {
-			"band": "Character",
-			"relation": "individual_ranganathan.html"
-                    },
-                    "children": []
-
-		}, {
-                    "id": "parvathi",
-                    "name": "Parvathi",
-                    "data": {
-			"band": "Character",
-			"relation": "individual_sharat.html"
-                    },
-                    "children": []
-		}, {
-                    "id": "ganesha",
-                    "name": "Ganesha",
-                    "data": {
-			"band": "Character",
-			"relation": "individual_sharat.html"
-                    },
-                    "children": []
-		},  {
-                    "id": "bramha",
-                    "name": "Bramha",
-                    "data": {
-			"band": "Character",
-			"relation": "individual_sharat.html"
-                    },
-                    "children": []
-		},  {
-                    "id": "vishnu",
-                    "name": "Vishnu",
-                    "data": {
-			"band": "Character",
-			"relation": "individual_sharat.html"
-                    },
-                    "children": []
-		}, {
-                    "id": "krishna",
-                    "name": "Krishna",
-                    "data": {
-			"band": "Character",
-			"relation": "individual_muralimohan.html"
-                    },
-                    "children": []
-		}, {
-                    "id": "radha",
-                    "name": "Radha",
-                    "data": {
-			"band": "Character",
-			"relation": "individual_muralimohan.html"
-                    },
-                    "children": []
-		}]
-            },
-    // Languages
-	    {
-		"id": "ornament",
-		"name": "Ornament",
-		"data": {
-		    "band": "Characteristics",
-		    "relation": "cultural.html"
-		},
-		"children": [{
-		    "id": "jewellery",
-		    "name": "Jewellery",
-		    "data": {
-			"band": "Ornament"
-			// "relation": "project_murals.html"
-		    },
-		    "children": [{
-			"id": "ear-ring",
-			"name": "Ear-ring",
-			"data": {
-			    "band": "Jewellery"
-			    // "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "ring",
-			"name": "Ring",
-			"data": {
-			    "band": "Jewellery"
-			    // "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "nose-ring",
-			"name": "Nose-ring",
-			"data": {
-			    "band": "Jewellery",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "pendent",
-			"name": "Pendent",
-			"data": {
-			    "band": "Jewellery",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "ankelet",
-			"name": "Ankelet",
-			"data": {
-			    "band": "Jewellery",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "bracelet",
-			"name": "Bracelet",
-			"data": {
-			    "band": "Jewellery",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "bangles",
-			"name": "Bangles",
-			"data": {
-			    "band": "Jewellery",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    }]
-		}, {
-		    "id": "material",
-		    "name": "Material",
-		    "data": {
-			"band": "Ornament",
-			"relation": "project_knowledge.html"
-		    },
-		    "children": [{
-			"id": "gold",
-			"name": "Gold",
-			"data": {
-			    "band": "Material",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "silver",
-			"name": "Silver",
-			"data": {
-			    "band": "Material",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "bronze",
-			"name": "Bronze",
-			"data": {
-			    "band": "Material",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "ruby",
-			"name": "Ruby",
-			"data": {
-			    "band": "Material",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "copper",
-			"name": "Copper",
-			"data": {
-			    "band": "Material",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "diamond",
-			"name": "Diamond",
-			"data": {
-			    "band": "Material",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    },{
-			"id": "topaz",
-			"name": "Topaz",
-			"data": {
-			    "band": "Material",
-			    "relation": "project_murals.html"
-			},
-			"children": []
-		    }]
-		}]
-	    }],
-	"data": {
-	    "relation": "index.html"
-	}
-    };
-    //end
+function inits() {
     var infovis = document.getElementById('infovis');
     var w = infovis.offsetWidth + 500; var h = infovis.offsetHeight + 385;
 
@@ -305,13 +100,9 @@ function inits(){
             style.left = (left - w / 2) + 'px';
 	},
     });
-    //load JSON data.
-    ht.loadJSON(json);
+    ht.loadJSON(tree_json);
     //compute positions and plot.
     ht.refresh();
     //end
     ht.controller.onComplete();
 }
-
-document.addEventListener("DOMContentLoaded", inits, false);
-

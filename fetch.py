@@ -1,8 +1,11 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask import make_response
 import json
 import pymongo
+import os
+import glob
 
 app = Flask(__name__)
 
@@ -12,6 +15,44 @@ def index():
         return render_template('index.html',json=request.args['json'])
     else:
         return render_template('index.html')
+
+@app.route('/editor', methods=['GET'])
+def editor():
+  if request.args.has_key('json'):
+    filename = request.args['json']
+  else:
+    filename = 'test.json'
+  filename = os.path.join('static', filename)
+  try:
+    f = open(filename, 'r')
+  except:
+    f = open('static/test.json', 'r')
+  buf = f.read()
+  f.close()
+  return render_template('editor.html', json = buf)
+
+@app.route('/saveJSON', methods=['POST'])
+def saveJSON():
+  if request.form:
+    data = request.form
+    JSON = data['json']
+    filename = os.path.join('static', data['filename'])
+    f = open(filename, 'w')
+    f.write(JSON)
+    f.close()
+    return (data, 200)
+  else:
+    return (json.dumps(request.form), 200) # Bad Request
+
+@app.route('/history', methods=['GET'])
+def listJSON():
+  path = os.path.join('static', '*.json')
+  ls = glob.glob(path)
+  def sanitize(i):
+    return i.split('/')[-1]
+  ls = map(sanitize, ls)
+  return render_template('history.html', ls=ls)
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')

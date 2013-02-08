@@ -64,4 +64,8 @@
 				"children":[]
 			}
 								 ]}
-	]}
+	],
+  "data": {
+	    "relation": "index.html"
+	}
+}
