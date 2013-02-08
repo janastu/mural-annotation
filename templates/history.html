@@ -10,9 +10,9 @@
     <h3> JSON history </h3>
     <ul>
       {% for file in ls %}
-      <li><a href="/editor?{{ file }}">{{ file }}</a></li>
+      <li><a href=" {{ url_for('editor') }}?{{ file }}">{{ file }}</a></li>
       {% endfor %}
     </ul>
-  </div> 
+  </div>
 </body>
 </html>
