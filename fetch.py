@@ -27,9 +27,9 @@ def editor():
       f = open(filename, 'r')
     except:
       f = open('static/test.json', 'r')
-      buf = f.read()
-      f.close()
-      return render_template('editor.html', json = buf)
+    buf = f.read()
+    f.close()
+    return render_template('editor.html', json = buf)
 
 @app.route('/saveJSON', methods=['POST'])
 def saveJSON():
@@ -58,8 +58,8 @@ def listJSON():
   ls = glob.glob(path)
   def sanitize(i):
     return i.split('/')[-1]
-    ls = map(sanitize, ls)
-    return render_template('history.html', ls=ls)
+  ls = map(sanitize, ls)
+  return render_template('history.html', ls=ls)
 
 
 if __name__ == "__main__":
