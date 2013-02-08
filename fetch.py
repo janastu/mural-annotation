@@ -18,17 +18,19 @@ def index():
   else:
     return render_template('index.html')
 
+ #fil = FileHandler(os.path.join(os.path.dirname(__file__),'logme'),mode='a')
+
 @app.route('/editor', methods=['GET'])
 def editor():
   if request.args.has_key('json'):
     filename = request.args['json']
   else:
     filename = 'test.json'
-  filename = os.path.join('static', filename)
+  filename = os.path.join(os.path.join(os.path.dirname(__file__),'static'), filename)
   try:
     f = open(filename, 'r')
   except:
-    f = open('static/test.json', 'r')
+    f = open(os.path.join(os.path.join(os.path.dirname(__file__), 'static'), 'test.json'), 'r')
   buf = f.read()
   f.close()
   return render_template('editor.html', json = buf)
