@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import make_response
+from logging import FileHandler
 import json
 import pymongo
 import os
@@ -60,6 +61,11 @@ def listJSON():
     return i.split('/')[-1]
   ls = map(sanitize, ls)
   return render_template('history.html', ls=ls)
+
+#Log the errors, don't depend on apache to log it for you.
+fil = FileHandler(os.path.join(os.path.dirname(__file__),'logme'),mode='a')
+fil.setLevel(logging.ERROR)
+app.logger.addHandler(fil)
 
 
 if __name__ == "__main__":
