@@ -6764,44 +6764,35 @@ THE SOFTWARE.
 	     }
 	     this.plot()
 	 },
-	 reposition: function() {
-     this.compute("end");
-     var w=this.graph.getNode(this.root).pos.getc().scale(-1);
-     e.Util.moebiusTransformation(this.graph,[w],["end"],"end","ignore");
-     this.graph.eachNode(function(x) {
-       if(x.ignore){
-         x.endPos.rho=x.pos.rho;
-         x.endPos.theta=x.pos.theta
-       }
-     });
+	 reposition:function(){
+	     this.compute("end");
+	     var w=this.graph.getNode(this.root).pos.getc().scale(-1);
+	     e.Util.moebiusTransformation(this.graph,[w],["end"],"end","ignore");
+	     this.graph.eachNode(function(x){
+		 if(x.ignore){
+		     x.endPos.rho=x.pos.rho;
+		     x.endPos.theta=x.pos.theta
+		 }
+	     })
 	 },
-	 plot: function() {
-	  this.fx.plot();
+	 plot:function(){
+	     this.fx.plot()
 	 },
-   tree_info_template: _.template($('#tree-info-template').html()),
-	 onClick: function(y, w) {
-     // Ajay - Visual target selection
-     /*if (this.graph.getNode(y)._angularWidth <= 0.5) {
-       if (this.graph.getNode(y).data.band == "Character") {
-       $("#character-value").html(this.graph.getNode(y).name);
-       } else if (this.graph.getNode(y).data.band == "Jewellery") {
-       $("#jewellery-value").html(this.graph.getNode(y).name);
-       } else	if (this.graph.getNode(y).data.band == "Material") {
-       $("#material-value").html(this.graph.getNode(y).name);
-       }
-       }*/
-     // Ajay - end of visual target  selection
-     var node = this.graph.getNode(y);
-     var children = $jit.json.getSubtree(tree_json, node.id).children;
-     if(_.isEmpty(children)) {
-       $('#tree-info ul').append(this.tree_info_template({
-         band: node.data.band,
-         node: node.name
-       }));
-     }
-     var x = node.pos.getc(true);
-     this.move(x, w);
-   },
+	 onClick:function(y,w){
+// Ajay - Visual target selection
+	     if (this.graph.getNode(y)._angularWidth <= 0.5) {
+		 if (this.graph.getNode(y).data.band == "Character") {
+		     $("#character-value").html(this.graph.getNode(y).name);
+		 } else if (this.graph.getNode(y).data.band == "Jewellery") {
+		     $("#jewellery-value").html(this.graph.getNode(y).name);
+		 } else	if (this.graph.getNode(y).data.band == "Material") {
+		     $("#material-value").html(this.graph.getNode(y).name);
+		 }
+	     }
+// Ajay - end of visual target  selection
+	     var x=this.graph.getNode(y).pos.getc(true);
+	     this.move(x,w)
+	 },
 	 move:function(A,y){
 	     var x=r(A.x,A.y);
 	     if(this.busy===false&&x.norm()<0.9){ // Ajay - make it clickable upto the depth of tree DIRECTLY. Increase in value = deeper the length.

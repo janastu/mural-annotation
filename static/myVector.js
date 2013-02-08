@@ -133,17 +133,16 @@ function init(){
   };
   map = new OpenLayers.Map('map', options);
   $.get(config.indexer+"/fetch", function(data){
-    return;
-		if (data.length != 0)
-		{
-	    ans.ans = JSON.parse(data);
-	    for(var i in ans.ans)
-	    {
-				ans.count+=1;
-				makeBoxes(ans.ans[i]);
-	    }
+    if (data != undefined)
+    {
+      ans.ans = data;
+      for(var i in ans.ans)
+      {
+        ans.count+=1;
+        makeBoxes(ans.ans[i]);
+      }
 
-		}
+    }
 
   });
   var layer = new OpenLayers.Layer.TMS( "TMS Layer","static/",

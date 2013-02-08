@@ -41,9 +41,7 @@
       }
       try {
         json = JSON.parse(json);
-        console.log(json);
-        console.log(filename);
-        $.post('/saveJSON', {"json": json, "filename": filename}, function(data) {
+        $.post('/saveJSON', {"json": JSON.stringify(json), "filename": filename}, function(data) {
           console.log(data);
           $('#json-saved').show();
         }, 'json');
