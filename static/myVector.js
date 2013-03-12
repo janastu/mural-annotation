@@ -129,7 +129,8 @@ function init(){
 		controls: [],
 		maxExtent: new OpenLayers.Bounds(  0.0, -4668.0, 31110.0, 0.0 ),
 		maxResolution: 128.000000,
-		numZoomLevels: 8
+		numZoomLevels: 8,
+		restrictedExtent: new OpenLayers.Bounds(  0.0, -4668.0, 31110.0, 0.0 )
   };
   map = new OpenLayers.Map('map', options);
   $.get(config.indexer+"/fetch", function(data){
@@ -145,12 +146,28 @@ function init(){
     }
 
   });
+
+	buffer0 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+																				{  url: '', serviceVersion: '.', layername: 'buffer0', alpha: true,
+																					 type: 'png', getURL: overlay_getTileURL, buffer:0, singleTile: false
+																				});
+
+	buffer1 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+																				{  url: '', serviceVersion: '.', layername: 'buffer1', alpha: true,
+																					 type: 'png', getURL: overlay_getTileURL, buffer:1, singleTile: false
+																				});
+
+	buffer2 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+																				{  url: '', serviceVersion: '.', layername: 'buffer2', alpha: true,
+																					 type: 'png', getURL: overlay_getTileURL, buffer:2, singleTile: false
+																				});
+
   var layer = new OpenLayers.Layer.TMS( "TMS Layer","static/",
 																				{  url: '', serviceVersion: '.', layername: '.', alpha: true,
-																					 type: 'png', getURL: overlay_getTileURL
+																					 type: 'png', getURL: overlay_getTileURL, isBaseLayer:true
 																				});
   boxes = new OpenLayers.Layer.Vector( "Boxes" );
-  map.addLayers([layer, boxes]);
+  map.addLayers([layer, buffer0, buffer1, buffer2, boxes]);
 
   boxes.events.register('featureadded', boxes, myfeatureadded);
   box2 = new OpenLayers.Layer.Vector( "Boxes" );
@@ -196,7 +213,7 @@ function init(){
   addLabel('4263.0000','-1345.33337', 'Video');
   map.addControl(new OpenLayers.Control.PanZoomBar());
   map.addControl(new OpenLayers.Control.MousePosition());
-  map.addControl(new OpenLayers.Control.MouseDefaults());
+  map.addControl(new OpenLayers.Control.Navigation());
   map.addControl(new OpenLayers.Control.KeyboardDefaults());
   map.addControl(new OpenLayers.Control.LayerSwitcher());
   map.zoomToExtent( mapBounds );

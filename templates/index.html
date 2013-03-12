@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="utf-8">
-  <head>
+	 <head>
+		 <meta charset="utf-8">
+		 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<script type="text/javascript">
 	  function annotationTree() {
       $('#annotation-tree').modal();
@@ -10,7 +11,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
 	<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
 	<script type="text/javascript" src="http://backbonejs.org/backbone-min.js"></script>
-	<script type="text/javascript" src="static/tree.js"></script>
+	<!-- <script type="text/javascript" src="static/tree.js"></script> -->
 	<style type='text/css'>
 	  /*#annotation-tree {
 	  position:fixed;
@@ -93,7 +94,7 @@
       <button onclick="handler.trigger1();" class="btn btn-small"> Face</button>
       <button onclick="handler.trigger2();" class="btn btn-small">Jewellery</button>
     </div>
-    
+
     <p></p>
 
     <input type="text" id="tree-json-file" value="old.json">
@@ -127,7 +128,7 @@
     <div class="modal-body">
       <div id="infovis"> </div>
       <div id="tree-info" class="well text-info">
-        <ul></ul>      
+        <ul></ul>
       </div>
     </div>
     <div class="modal-footer">
