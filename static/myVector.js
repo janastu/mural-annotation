@@ -124,68 +124,123 @@ function onMyFeatureSelect(feature, json, x, y)
   z.panMapIfOutOfView = true;
   map.addPopup(z);
 }
-function init(){
-  var options = {
-		controls: [],
-		maxExtent: new OpenLayers.Bounds(  0.0, -4668.0, 31110.0, 0.0 ),
-		maxResolution: 128.000000,
-		numZoomLevels: 8,
-		restrictedExtent: new OpenLayers.Bounds(  0.0, -4668.0, 31110.0, 0.0 )
-  };
-  map = new OpenLayers.Map('map', options);
-  $.get(config.indexer+"/fetch", function(data){
-    if (data != undefined)
-    {
-      ans.ans = data;
-      for(var i in ans.ans)
-      {
-        ans.count+=1;
-        makeBoxes(ans.ans[i]);
-      }
+function init(url){
+	box2 = new OpenLayers.Layer.Vector( "Boxes");
+	box3 = new OpenLayers.Layer.Vector( "Boxes");
+	if(url != undefined)
+	{
+		var options = {
+			controls: [],
+			maxExtent: new OpenLayers.Bounds(  0.0, -928.0, 6744.0, 0.0 ),
+			maxResolution: 32.000000,
+			numZoomLevels: 6
+		};
+		map = new OpenLayers.Map('map', options);
 
-    }
+		$.get(config.indexer+"/fetch",{url:decodeURIComponent(window.location.search.split("=")[1]).replace("\"","","gi")} , function(data){
+			if (data != undefined)
+			{
+				ans.ans = data;
+				for(var i in ans.ans)
+				{
+					ans.count+=1;
+					makeBoxes(ans.ans[i]);
+				}
 
-  });
+			}
 
-	buffer0 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+		});
+
+
+		buffer0 = new OpenLayers.Layer.TMS( "TMS Layer","static/withpiv/",
 																				{  url: '', serviceVersion: '.', layername: 'buffer0', alpha: true,
 																					 type: 'png', getURL: overlay_getTileURL, buffer:0, singleTile: false
 																				});
 
-	buffer1 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+		buffer1 = new OpenLayers.Layer.TMS( "TMS Layer","static/withpiv/",
 																				{  url: '', serviceVersion: '.', layername: 'buffer1', alpha: true,
 																					 type: 'png', getURL: overlay_getTileURL, buffer:1, singleTile: false
 																				});
 
-	buffer2 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+		buffer2 = new OpenLayers.Layer.TMS( "TMS Layer","static/withpiv/",
 																				{  url: '', serviceVersion: '.', layername: 'buffer2', alpha: true,
 																					 type: 'png', getURL: overlay_getTileURL, buffer:2, singleTile: false
 																				});
 
-  var layer = new OpenLayers.Layer.TMS( "TMS Layer","static/",
-																				{  url: '', serviceVersion: '.', layername: '.', alpha: true,
-																					 type: 'png', getURL: overlay_getTileURL, isBaseLayer:true
+		var layer = new OpenLayers.Layer.TMS( "TMS Layer","static/withpiv/",
+																					{  url: '', serviceVersion: '.', layername: '.', alpha: true,
+																						 type: 'png', getURL: overlay_getTileURL, isBaseLayer:true
+																					});
+	}
+	else{
+		var options = {
+			controls: [],
+			maxExtent: new OpenLayers.Bounds(  0.0, -4668.0, 31110.0, 0.0 ),
+			maxResolution: 128.000000,
+			numZoomLevels: 8
+		};
+		map = new OpenLayers.Map('map', options);
+		$.get(config.indexer+"/fetch",{url:window.location.href} , function(data){
+			if (data != undefined)
+			{
+				ans.ans = data;
+				for(var i in ans.ans)
+				{
+					ans.count+=1;
+					makeBoxes(ans.ans[i]);
+				}
+
+			}
+
+		});
+
+		buffer0 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+																				{  url: '', serviceVersion: '.', layername: 'buffer0', alpha: true,
+																					 type: 'png', getURL: overlay_getTileURL, buffer:0, singleTile: false
 																				});
+
+		buffer1 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+																				{  url: '', serviceVersion: '.', layername: 'buffer1', alpha: true,
+																					 type: 'png', getURL: overlay_getTileURL, buffer:1, singleTile: false
+																				});
+
+		buffer2 = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+																				{  url: '', serviceVersion: '.', layername: 'buffer2', alpha: true,
+																					 type: 'png', getURL: overlay_getTileURL, buffer:2, singleTile: false
+																				});
+
+		var layer = new OpenLayers.Layer.TMS( "TMS Layer","static/",
+																					{  url: '', serviceVersion: '.', layername: '.', alpha: true,
+																						 type: 'png', getURL: overlay_getTileURL, isBaseLayer:true
+																					});
+
+
+		addLabel('3759.0000','-1274.33337','Face');
+		addLabel('3719','-1771','Jewelery');
+		addLabel('4263.0000','-1345.33337', 'Video');
+
+		for (var i = 0; i < box_extents.length; i++) {
+			ext = box_extents[i];
+			bounds = OpenLayers.Bounds.fromArray(ext);
+
+			box = new OpenLayers.Feature.Vector(bounds.toGeometry());
+			box2.addFeatures(box);
+		}
+		for (var i = 0; i < box_extents1.length; i++) {
+			ext = box_extents1[i];
+			bounds = OpenLayers.Bounds.fromArray(ext);
+
+			box = new OpenLayers.Feature.Vector(bounds.toGeometry());
+			box3.addFeatures(box);
+		}
+
+	}
   boxes = new OpenLayers.Layer.Vector( "Boxes" );
   map.addLayers([layer, buffer0, buffer1, buffer2, boxes]);
 
+	layer.wrapDateLine = true;
   boxes.events.register('featureadded', boxes, myfeatureadded);
-  box2 = new OpenLayers.Layer.Vector( "Boxes" );
-  for (var i = 0; i < box_extents.length; i++) {
-    ext = box_extents[i];
-    bounds = OpenLayers.Bounds.fromArray(ext);
 
-    box = new OpenLayers.Feature.Vector(bounds.toGeometry());
-    box2.addFeatures(box);
-  }
-  box3 = new OpenLayers.Layer.Vector( "Boxes");
-  for (var i = 0; i < box_extents1.length; i++) {
-    ext = box_extents1[i];
-    bounds = OpenLayers.Bounds.fromArray(ext);
-
-    box = new OpenLayers.Feature.Vector(bounds.toGeometry());
-    box3.addFeatures(box);
-  }
   map.addLayers([box2, box3]);
 
   selectControl = new OpenLayers.Control.SelectFeature(box3,
@@ -203,20 +258,17 @@ function init(){
 	  select: selectControl
   };
 
-  map.zoomToExtent( mapBounds );
+
   for(var key in drawControls){
 		map.addControl(drawControls[key]);
   }
   drawControls['select'].activate();
-  addLabel('3759.0000','-1274.33337','Face');
-  addLabel('3719','-1771','Jewelery');
-  addLabel('4263.0000','-1345.33337', 'Video');
   map.addControl(new OpenLayers.Control.PanZoomBar());
   map.addControl(new OpenLayers.Control.MousePosition());
   map.addControl(new OpenLayers.Control.Navigation());
   map.addControl(new OpenLayers.Control.KeyboardDefaults());
   map.addControl(new OpenLayers.Control.LayerSwitcher());
-  map.zoomToExtent( mapBounds );
+  map.zoomToExtent( options['maxExtent'] );
   //document.getElementById('noneToggle').checked = true;
 }
 function addLabel(left, top, name)
@@ -403,7 +455,14 @@ function publish()
 		myJSON[i].text = ' annotated '+window.location.href+"#[top="+myJSON[i].top+",bottom="+myJSON[i].bottom+",left="+myJSON[i].left+",right="+myJSON[i].right+"] as "+myJSON[i].name+" "+jString+" #swtr"; //The string which gets posted as a tweet.
 		myJSON[i].text = encodeURIComponent(myJSON[i].text);
 		myJSON[i].user = user; // User need not know the modification to the JSON.
-		myJSON[i].title = 'Annotation for '+window.location.href;
+		if(window.location.search == ""){
+			myJSON[i].title = 'Annotation for '+window.location.href;
+			myJSON[i].url = window.location.href;
+		}
+		else{
+			myJSON[i].title = 'Annotation for '+ decodeURIComponent(window.location.search.split("=")[1]).replace("\"","","gi");
+			myJSON[i].url = decodeURIComponent(window.location.search.split("=")[1]).replace("\"","","gi");
+		}
 	}
 	$.post(config.indexer+'/submit', JSON.stringify(myJSON),function(){
 		$.post(config.postTweetUrl, {"data":JSON.stringify(myJSON)}, function(data) {
