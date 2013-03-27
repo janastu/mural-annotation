@@ -6,7 +6,7 @@ from flask import jsonify
 import logging
 from logging import FileHandler
 import pymongo
-
+import os
 
 app = Flask(__name__)
 
@@ -24,11 +24,14 @@ def fetch():
     collection = db['data']
     ret = {}
     x = 0
-    for i in collection.find({'url':request.args['url']}):
+    resource = "default"
+    if request.args.has_key('res'):
+        resource = request.args['res']
+    for i in collection.find({'res':resource}):
         del(i['_id'])
         ret[x] = i
         x = x + 1
-    jsonify(ret)
+    return jsonify(ret)
 
 
 #Log the errors, don't depend on apache to log it for you.
