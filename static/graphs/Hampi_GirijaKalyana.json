@@ -1,0 +1,715 @@
+[{ 
+"adjacencies" :[{"nodeTo" :"Mantapa",
+"nodeFrom":"TempleElement",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TempleElement","name":"TempleElement"
+},{ 
+"adjacencies" :[{"nodeTo" :"KalyanaMantapa",
+"nodeFrom":"Mantapa",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Mantapa","name":"Mantapa"
+},{ 
+"adjacencies" :[{"nodeTo" :"GarbhaGriha",
+"nodeFrom":"TempleElement",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TempleElement","name":"TempleElement"
+},{ 
+"adjacencies" :[{"nodeTo" :"Date",
+"nodeFrom":"TimeAppellation",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TimeAppellation","name":"TimeAppellation"
+},{ 
+"adjacencies" :[{"nodeTo" :"City",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"Village",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"District",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"State",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"Country",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"Empire",
+"nodeFrom":"Event",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Event","name":"Event"
+},{ 
+"adjacencies" :[{"nodeTo" :"King",
+"nodeFrom":"Person",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Person","name":"Person"
+},{ 
+"adjacencies" :[{"nodeTo" :"MuralTradition",
+"nodeFrom":"Tradition",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Tradition","name":"Tradition"
+},{ 
+"adjacencies" :[{"nodeTo" :"Human",
+"nodeFrom":"Character",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Character","name":"Character"
+},{ 
+"adjacencies" :[{"nodeTo" :"Animal",
+"nodeFrom":"Character",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Character","name":"Character"
+},{ 
+"adjacencies" :[{"nodeTo" :"Male",
+"nodeFrom":"Human",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Human","name":"Human"
+},{ 
+"adjacencies" :[{"nodeTo" :"Female",
+"nodeFrom":"Human",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Human","name":"Human"
+},{ 
+"adjacencies" :[{"nodeTo" :"Ritual",
+"nodeFrom":"Tradition",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Tradition","name":"Tradition"
+},{ 
+"adjacencies" :[{"nodeTo" :"CulturalContent",
+"nodeFrom":"MuralContent",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralContent","name":"MuralContent"
+},{ 
+"adjacencies" :[{"nodeTo" :"Fashion",
+"nodeFrom":"CulturalContent",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"CulturalContent","name":"CulturalContent"
+},{ 
+"adjacencies" :[{"nodeTo" :"Tattoo",
+"nodeFrom":"Fashion",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Fashion","name":"Fashion"
+},{ 
+"adjacencies" :[{"nodeTo" :"Jewellery",
+"nodeFrom":"Fashion",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Fashion","name":"Fashion"
+},{ 
+"adjacencies" :[{"nodeTo" :"HairStyle",
+"nodeFrom":"Fashion",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Fashion","name":"Fashion"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijayaNagara",
+"nodeFrom":"City",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#fff","$label-size":"20","$nodecDir":""},"id":"City","name":"City"
+},{ 
+"adjacencies" :[{"nodeTo" :"India",
+"nodeFrom":"Country",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Country","name":"Country"
+},{ 
+"adjacencies" :[{"nodeTo" :"Bellary",
+"nodeFrom":"District",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"District","name":"District"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijayanagaraEmpire",
+"nodeFrom":"Empire",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Empire","name":"Empire"
+},{ 
+"adjacencies" :[{"nodeTo" :"VirupanaNayak",
+"nodeFrom":"King",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"King","name":"King"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaMural",
+"nodeFrom":"MuralPainting",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralPainting","name":"MuralPainting"
+},{ 
+"adjacencies" :[{"nodeTo" :"ShivaPurana",
+"nodeFrom":"Scripture",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Scripture","name":"Scripture"
+},{ 
+"adjacencies" :[{"nodeTo" :"Karnataka",
+"nodeFrom":"State",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"State","name":"State"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"Story",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Story","name":"Story"
+},{ 
+"adjacencies" :[{"nodeTo" :"VirupakshaTemple",
+"nodeFrom":"Temple",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Temple","name":"Temple"
+},{ 
+"adjacencies" :[{"nodeTo" :"AD_1500",
+"nodeFrom":"TimeAppellation",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TimeAppellation","name":"TimeAppellation"
+},{ 
+"adjacencies" :[{"nodeTo" :"AD_1336",
+"nodeFrom":"TimeAppellation",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TimeAppellation","name":"TimeAppellation"
+},{ 
+"adjacencies" :[{"nodeTo" :"AD_1646",
+"nodeFrom":"TimeAppellation",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TimeAppellation","name":"TimeAppellation"
+},{ 
+"adjacencies" :[{"nodeTo" :"AD_1336_to_AD_1646",
+"nodeFrom":"TimeSpan",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TimeSpan","name":"TimeSpan"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampi",
+"nodeFrom":"Village",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Village","name":"Village"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijaynagaraTradition",
+"nodeFrom":"MuralTradition",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralTradition","name":"MuralTradition"
+},{ 
+"adjacencies" :[{"nodeTo" :"Nandi",
+"nodeFrom":"Animal",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Animal","name":"Animal"
+},{ 
+"adjacencies" :[{"nodeTo" :"Snake",
+"nodeFrom":"Animal",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Animal","name":"Animal"
+},{ 
+"adjacencies" :[{"nodeTo" :"Pampapathi",
+"nodeFrom":"Male",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Male","name":"Male"
+},{ 
+"adjacencies" :[{"nodeTo" :"Daksha",
+"nodeFrom":"Male",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Male","name":"Male"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"Female",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Female","name":"Female"
+},{ 
+"adjacencies" :[{"nodeTo" :"KalyanUtsav",
+"nodeFrom":"Ritual",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Ritual","name":"Ritual"
+},{ 
+"adjacencies" :[{"nodeTo" :"PalaPuja",
+"nodeFrom":"Ritual",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Ritual","name":"Ritual"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaTattoo",
+"nodeFrom":"Tattoo",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Tattoo","name":"Tattoo"
+},{ 
+"adjacencies" :[{"nodeTo" :"Anklet",
+"nodeFrom":"Jewellery",
+"data":{"$color":"#f00"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Jewellery","name":"Jewellery"
+},{ 
+"adjacencies" :[{"nodeTo" :"Face",
+"nodeFrom":"Person",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Person","name":"Person"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaEg",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"Anklet",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"Pampapathi",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"Daksha",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"NandiEg",
+"nodeFrom":"Nandi",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#fff","$label-size":"20","$nodecDir":""},"id":"Nandi","name":"Nandi"
+},{ 
+"adjacencies" :[{"nodeTo" :"PampapathiEg1",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"PampapathiEg2",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"GKTattooExample",
+"nodeFrom":"GirijaKalyanaTattoo",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaTattoo","name":"GirijaKalyanaTattoo"
+},{ 
+"adjacencies" :[{"nodeTo" :"Story",
+"nodeFrom":"MuralPainting",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralPainting","name":"MuralPainting"
+},{ 
+"adjacencies" :[{"nodeTo" :"MuralContent",
+"nodeFrom":"MuralPainting",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralPainting","name":"MuralPainting"
+},{ 
+"adjacencies" :[{"nodeTo" :"MuralTradition",
+"nodeFrom":"MuralPainting",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralPainting","name":"MuralPainting"
+},{ 
+"adjacencies" :[{"nodeTo" :"TimePeriod",
+"nodeFrom":"MuralPainting",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralPainting","name":"MuralPainting"
+},{ 
+"adjacencies" :[{"nodeTo" :"Mantapa",
+"nodeFrom":"MuralPainting",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralPainting","name":"MuralPainting"
+},{ 
+"adjacencies" :[{"nodeTo" :"MuralPainting",
+"nodeFrom":"Story",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Story","name":"Story"
+},{ 
+"adjacencies" :[{"nodeTo" :"Narrative",
+"nodeFrom":"Story",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Story","name":"Story"
+},{ 
+"adjacencies" :[{"nodeTo" :"Scripture",
+"nodeFrom":"Story",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Story","name":"Story"
+},{ 
+"adjacencies" :[{"nodeTo" :"Story",
+"nodeFrom":"Scripture",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Scripture","name":"Scripture"
+},{ 
+"adjacencies" :[{"nodeTo" :"Character",
+"nodeFrom":"Story",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Story","name":"Story"
+},{ 
+"adjacencies" :[{"nodeTo" :"Ritual",
+"nodeFrom":"Story",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Story","name":"Story"
+},{ 
+"adjacencies" :[{"nodeTo" :"Story",
+"nodeFrom":"Character",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Character","name":"Character"
+},{ 
+"adjacencies" :[{"nodeTo" :"Animal",
+"nodeFrom":"Human",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Human","name":"Human"
+},{ 
+"adjacencies" :[{"nodeTo" :"TimeAppellation",
+"nodeFrom":"Temple",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Temple","name":"Temple"
+},{ 
+"adjacencies" :[{"nodeTo" :"TempleElement",
+"nodeFrom":"Temple",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Temple","name":"Temple"
+},{ 
+"adjacencies" :[{"nodeTo" :"Temple",
+"nodeFrom":"TempleElement",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TempleElement","name":"TempleElement"
+},{ 
+"adjacencies" :[{"nodeTo" :"TimeAppellation",
+"nodeFrom":"TimePeriod",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TimePeriod","name":"TimePeriod"
+},{ 
+"adjacencies" :[{"nodeTo" :"Empire",
+"nodeFrom":"MuralTradition",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"MuralTradition","name":"MuralTradition"
+},{ 
+"adjacencies" :[{"nodeTo" :"VirupakshaTemple",
+"nodeFrom":"KalyanaMantapa",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"KalyanaMantapa","name":"KalyanaMantapa"
+},{ 
+"adjacencies" :[{"nodeTo" :"Narrator",
+"nodeFrom":"Narrative",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Narrative","name":"Narrative"
+},{ 
+"adjacencies" :[{"nodeTo" :"Human",
+"nodeFrom":"Human",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Human","name":"Human"
+},{ 
+"adjacencies" :[{"nodeTo" :"Event",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"Place",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"Place",
+"nodeFrom":"Temple",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Temple","name":"Temple"
+},{ 
+"adjacencies" :[{"nodeTo" :"Place",
+"nodeFrom":"Event",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Event","name":"Event"
+},{ 
+"adjacencies" :[{"nodeTo" :"LatLons",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"Empire",
+"nodeFrom":"Place",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Place","name":"Place"
+},{ 
+"adjacencies" :[{"nodeTo" :"TimeAppellation",
+"nodeFrom":"TimeSpan",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"TimeSpan","name":"TimeSpan"
+},{ 
+"adjacencies" :[{"nodeTo" :"Person",
+"nodeFrom":"Temple",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Temple","name":"Temple"
+},{ 
+"adjacencies" :[{"nodeTo" :"Bellary",
+"nodeFrom":"VijayaNagara",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VijayaNagara","name":"VijayaNagara"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijayanagaraEmpire",
+"nodeFrom":"VijayaNagara",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VijayaNagara","name":"VijayaNagara"
+},{ 
+"adjacencies" :[{"nodeTo" :"Karnataka",
+"nodeFrom":"Bellary",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Bellary","name":"Bellary"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#000","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"KalyanaMantapa",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijaynagaraTradition",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"ShivaPurana",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"ShivaPurana","name":"ShivaPurana"
+},{ 
+"adjacencies" :[{"nodeTo" :"India",
+"nodeFrom":"Karnataka",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Karnataka","name":"Karnataka"
+},{ 
+"adjacencies" :[{"nodeTo" :"ShivaPurana",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"Pampapathi",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"Daksha",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaMural",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"PalaPuja",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"KalyanUtsav",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"AD_1500",
+"nodeFrom":"VirupakshaTemple",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VirupakshaTemple","name":"VirupakshaTemple"
+},{ 
+"adjacencies" :[{"nodeTo" :"VirupanaNayak",
+"nodeFrom":"VirupakshaTemple",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VirupakshaTemple","name":"VirupakshaTemple"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampi",
+"nodeFrom":"VirupakshaTemple",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VirupakshaTemple","name":"VirupakshaTemple"
+},{ 
+"adjacencies" :[{"nodeTo" :"KalyanaMantapa",
+"nodeFrom":"VirupakshaTemple",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VirupakshaTemple","name":"VirupakshaTemple"
+},{ 
+"adjacencies" :[{"nodeTo" :"GarbhaGriha",
+"nodeFrom":"VirupakshaTemple",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VirupakshaTemple","name":"VirupakshaTemple"
+},{ 
+"adjacencies" :[{"nodeTo" :"AD_1336",
+"nodeFrom":"AD_1336_to_AD_1646",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"AD_1336_to_AD_1646","name":"AD_1336_to_AD_1646"
+},{ 
+"adjacencies" :[{"nodeTo" :"AD_1646",
+"nodeFrom":"AD_1336_to_AD_1646",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"AD_1336_to_AD_1646","name":"AD_1336_to_AD_1646"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijayaNagara",
+"nodeFrom":"Hampi",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#fff","$type":"ellipse",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Hampi","name":"Hampi"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijayanagaraEmpire",
+"nodeFrom":"VijaynagaraTradition",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"VijaynagaraTradition","name":"VijaynagaraTradition"
+},{ 
+"adjacencies" :[{"nodeTo" :"Snake",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"Nandi",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"Daksha",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Daksha","name":"Daksha"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"Daksha",
+"data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Daksha","name":"Daksha"
+},{ 
+"adjacencies" :[{"nodeTo" :"Pampapathi",
+"nodeFrom":"Hampamma",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Hampamma","name":"Hampamma"
+},{ 
+"adjacencies" :[{"nodeTo" :"Daksha",
+"nodeFrom":"Hampamma",
+"data":{"$color":"#000"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodecDir":""},"id":"Hampamma","name":"Hampamma"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"Hampamma",
+ "data":{"$color":"#00f"}}] ,
+"data":{"$color":"#999","$type":"rectangle",
+"$label-color":"#000","$label-size":"20","$nodeDir":""},"id":"Hampamma","name":"Hampamma"
+}]

@@ -56,7 +56,7 @@ def submit():
     except:
         response = make_response()
         response.status = "500"
-        respose.data = "Your post could not be saved. Try posting again."
+        response.data = "Your post could not be saved. Try posting again."
         return response
 
 
@@ -73,9 +73,22 @@ def SWeeText():
             pass
         root = lxml.html.parse(StringIO.StringIO(page)).getroot()
         root.make_links_absolute(request.args['url'], resolve_base_href = True)
+
+        # inject the JS toolbar to annotate text
+        script = root.makeelement('script')
+        script.set('src', 'static/text-annotation.js')
+        link = root.makeelement('link')
+        link.set('href', 'static/text-annotation.css')
+        link.set('type', 'text/css')
+        link.set('rel', 'stylesheet')
+
+        root.body.append(script)
+        root.head.append(link)
+
         return lxml.html.tostring(root)
+
 #Log the errors, don't depend on apache to log it for you.
-    fil = FileHandler(os.path.join(os.path.dirname(__file__), 'logme'), mode='a')
+    fil = FileHandler(os.path.join(os.path.dirname(__file__), 'logme'),mode='a')
     fil.setLevel(logging.ERROR)
     app.logger.addHandler(fil)
 

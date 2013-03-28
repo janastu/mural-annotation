@@ -373,7 +373,7 @@ function myfeatureadded(myObj)
 		map.addLayer(vectorLayer);
 		vectorLayer.drawFeature(labelFeature);
 		vectorLayer.addFeatures([labelFeature]);
-		annotationTree();
+		initAnnotationTree();
 		attribs = {
 	    "top": topValue,
 	    "bottom": bottom,
@@ -472,6 +472,6 @@ function publish()
 	});
 }
 var config = {
-	'postTweetUrl':'http://127.0.0.1:5000/add',
-	'indexer':'http://192.168.100.56:82'
+	'postTweetUrl':'http://192.168.100.14:5001',
+	'indexer':'http://localhost:5000'
 }

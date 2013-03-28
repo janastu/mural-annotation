@@ -1,108 +1,268 @@
-var labelType, useGradients, nativeTextSupport, animate, ht, tree_json;
-
+var labelType, animate, useGradients, nativeTextSupport, RGraph;
 (function() {
-    var ua = navigator.userAgent,
-    iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
-    typeOfCanvas = typeof HTMLCanvasElement,
-    nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-    textSupport = nativeCanvasSupport
+  var ua = navigator.userAgent,
+      iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
+      typeOfCanvas = typeof HTMLCanvasElement,
+      nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
+      textSupport = nativeCanvasSupport 
         && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
-    //I'm setting this based on the fact that ExCanvas provides text support for IE
-    //and that as of today iPhone/iPad current text support is lame
-    labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? 'Native' : 'HTML';
-    nativeTextSupport = labelType == 'Native';
-    useGradients = nativeCanvasSupport;
-    animate = !(iStuff || !nativeCanvasSupport);
-
-    //load JSON data.
-    // FIXME: the url is hardcoded, maybe you have to change it
-    // if the file is a variable one
-    $.getJSON('static/old.json', function(json) {
-      console.log('json', json);
-      tree_json = json;
-      inits();
-    });
-
+  //I'm setting this based on the fact that ExCanvas provides text support for IE
+  //and that as of today iPhone/iPad current text support is lame
+  labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? 'Native' : 'HTML';
+  nativeTextSupport = labelType == 'Native';
+  useGradients = nativeCanvasSupport;
+  animate = !(iStuff || !nativeCanvasSupport);
 })();
 
-function inits() {
-    var infovis = document.getElementById('infovis');
-    var w = infovis.offsetWidth + 500; var h = infovis.offsetHeight + 385;
+var ontology_json;
 
-    //init Hypertree
-    ht = new $jit.Hypertree({
-	//id of the visualization container
-	injectInto: 'infovis',
-	//canvas width and height
-	width: w,
-	height: h,
-	//Change node and edge styles such as
-	//color, width and dimensions.
-	Node: {
-            dim: 2.5,
-            color: "#555"
-	},
-	Edge: {
-	    lineWidth: 1,
-            color: "#222"
-	},
-
-	// On hover
-	Tips: {
-	    enable: false,
-
-	    onShow: function(tip, node) {
-		ht.tips.config.offsetX = "10";
-		ht.tips.config.offsetY = "10";
-//		tip.addEventListener("click", alert('hello'), false);
- 		tip.innerHTML = "<div id=\"value\" class=\"tip-title\" style=\"text-align:center;\">" + node.name + "</div>";
-//		    + node.data.relation + " style=\"color:#fff;\">" + node.name + "</a></div>";
- 	    }
-	},
-
-	//Attach event handlers and add text to the
-	//labels. This method is only triggered on label
-	//creation
-	onCreateLabel: function(domElement, node){
-            domElement.innerHTML = node.name;
-            $jit.util.addEvent(domElement, 'click', function () {
-		ht.onClick(node.id, {
-                    onComplete: function() {
-			ht.controller.onComplete();
-                    }
-		});
-            });
-	},
-	//Change node styles when labels are placed
-	//or moved.
-	onPlaceLabel: function(domElement, node){
-            var style = domElement.style;
-            style.display = '';
-            style.cursor = 'pointer';
-	    ht.controller.Node.transform = false;
-	    ht.controller.Edge.alpha = "0.3";
-            if (node._depth == 0) {
-		style.fontSize = "0.8em";
-		style.color = "#111";
-            } else if(node._depth == 1){
-		style.fontSize = "0.9em";
-		style.color = "#222";
-            } // else if(node._depth == 2){
-	    // 	style.fontSize = "0.7em";
-	    // 	style.color = "#444";
-            // }
-	    else {
-		style.display = 'none';
-            }
-
-            var left = parseInt(style.left);
-            var w = domElement.offsetWidth;
-            style.left = (left - w / 2) + 'px';
-	},
-    });
-    ht.loadJSON(tree_json);
-    //compute positions and plot.
-    ht.refresh();
-    //end
-    ht.controller.onComplete();
+function initAnnotationTree() {
+  //Log.write('Loading ontology file');
+  $('#annotation-tree').modal();
+  $('#annotation-tree').on('shown', function() {
+    loadOntologyJSON();
+  });
 }
+
+function initNodeListEvents() {
+// register event handler for list of nodes that comes in the stats box.
+// click on the nodes in the stats box will center them in the graph and
+// update the stats box.
+  $('.list-nodes').unbind('click');
+  $('.list-nodes').click(function(event) {
+    var id = $(event.currentTarget).attr('id').split('-')[1];
+    var node = RGraph.graph.getNode(id);
+    centerNode(event, node);
+  });
+}
+
+function loadOntologyJSON() {
+  // if the file is already loaded, no need to load again
+  if(typeof ontology_json === 'object') {
+    drawRGraph();
+    return;
+  }
+  console.log('Loading ontology file');
+  var url = 'static/graphs/Hampi_GirijaKalyana.json'
+  $.ajax({
+    type: 'GET',
+    url: url,
+    dataType: 'json',
+    success: function(data) {
+      console.log('Ontology JSON loaded');
+      ontology_json = data;
+      drawRGraph();
+    },
+    error: function(xhr, errtype, errtext) {
+      console.log('Could not load Ontology JSON!');
+      console.log(errtype, ':', errtext);
+    }
+  });
+}
+
+var Log = {
+  elem: document.getElementById('status'),
+  write: function(msg) {
+    this.elem.innerHTML = msg;
+  }
+};
+
+var Stats = {
+  init: function() {
+    this.node_info = document.getElementById('node-info');
+    this.selected_info = document.getElementById('selected-nodes');
+  },
+  write: function(msg) {
+    this.node_info.innerHTML = msg;
+  },
+  appendSelectedList: function() {
+    var html = '<h4>Selected:</h4>';
+    if(!sweet.nodes.length) {
+      html += '<b>None</b>';
+    }
+    else {
+      html += '<ul>';
+      for(var i in sweet.nodes) {
+        html += '<li>' + sweet.nodes[i] + '</li>';
+      }
+      html += '</ul>';
+    }
+    this.selected_info.innerHTML = html;
+  }
+};
+
+// return "add node" template button creating an id for it
+var addNodeTemplate = function(node) {
+  return '<button onclick="addNode(event);" class="btn" id="add-'+
+    node +'">Add '+ node +'</button>';
+};
+
+// add node to the selected list to be sweeted.
+function addNode(event) {
+  var id = $(event.currentTarget).attr('id');
+  var node = id.split('-')[1];
+  sweet.add(node);
+  //Log.write('Added node ' + node);
+}
+
+//center the given node in the graph and update the stats box
+function centerNode(event, node) {
+  if(event.stopPropagation) {
+    event.stopPropagation();
+  }
+  //Log.write('centering node ', node.name);
+  RGraph.onClick(node.id, {   
+    hideLabels: false,  
+    onComplete: function() {  
+      //Log.write("done");  
+    }
+  });  
+  var html = '<h4>' + node.name + '</h4><b>Links To:</b>:<ul>';
+  node.eachAdjacency(function(adj) {
+    html += '<li><a class="list-nodes" href="#" id="list-' + adj.nodeTo.id + '">' +
+      adj.nodeTo.name + '</a></li>';
+  });
+  html += '</ul>';
+  html += addNodeTemplate(node.name);
+  Stats.write(html);
+  Stats.appendSelectedList();
+  initNodeListEvents();
+  return false;
+}
+
+var sweet = {
+  nodes: [],
+  swts: [],
+  type: 'idh-mowl',
+  add: function(node) {
+    if(_.indexOf(node, this.nodes) === -1) {
+      this.nodes.push(node);
+    }
+    Stats.appendSelectedList();
+  },
+  remove: function(node) {
+  },
+  save: function() {
+    var resource = window.location.search ? window.location.search.split('=')[1] :
+      'default';
+    resource = decodeURIComponent(resource).replace('"', '', 'gi');
+    var data = {
+      user: user,
+      type: this.type,
+      uri: resource,
+      top: attribs.top,
+      bottom: attribs.bottom,
+      left: attribs.left,
+      right: attribs.right,
+      nodes: this.nodes,
+    };
+    this.swts.push(data);
+    this.nodes = [];
+  },
+  publish: function() {
+    if(!this.swts.length) {
+      return;
+    }
+    $('#publish').attr('disabled', 'disabled');
+    $.ajax({
+      type: 'POST',
+      url: config.indexer + '/submit',
+      data: JSON.stringify(this.swts),
+      success: function() {
+        $.ajax({
+          type: 'POST',
+          url: config.postTweetUrl,
+          data: {'data': JSON.stringify(this.swts)},
+          success: function() {
+            $('#posted').show();
+            this.swts = [];
+          },
+          error: function() {
+            $('#fail-posting').show();
+          }
+        });
+      },
+      error: function() {
+        $('#fail-posting').show();
+      }
+    });
+  }
+};
+
+function closeAnnotationTree() {
+  $('#annotation-tree').modal('hide');
+  $('#infovis').html('');
+  $('#node-info').html('');
+  $('#selected-nodes').html('');
+  sweet.save();
+  $('#publish').attr('disabled', false);
+}
+
+function drawRGraph() {
+  var rgraph = new $jit.RGraph({
+    injectInto: 'infovis',
+    Navigation: {
+      enable: true,
+      panning: 'avoid nodes',
+      zooming: 100
+    },
+    Node: {
+      overridable: true,
+      //span: 5,
+      //height: 40,
+      //width: 150,
+      angularWidth: 100,
+      //autoHeight: true,
+      //autoWidth: true,
+      dim: 10
+    },
+    Edge: {
+      overridable: true
+    },
+    Label: {
+      overridable: true,
+      type: labelType, //Native or HTML
+      size: 14
+    },
+    interpolation: 'polar',
+    transition: $jit.Trans.Sine.easeInOut,
+    levelDistance: 150,
+    onCreateLabel: function(domElement, node) {
+      console.log('oncreatelabel');
+    },
+    onPlaceLabel: function(domElement, node) {
+      console.log('onplacelabel');
+      /*var style = domElement.style;
+      var top = parseInt(style.top);
+      console.log('top :', top);
+      style.top = (top - 40) + 'px';*/
+    },
+    Events: {
+      enable: true,
+      type: 'Native',
+      onMouseEnter: function() {
+        rgraph.canvas.getElement().style.cursor = 'pointer';
+      },
+      onMouseLeave: function() {
+        rgraph.canvas.getElement().style.cursor = '';
+      },
+      onClick: function(node, event_info, e) {
+        console.log(node, event_info, e);
+        if(!node) {
+          return;
+        }
+        centerNode(e, node);
+      }
+    }
+  });
+
+  rgraph.loadJSON(ontology_json);
+  rgraph.refresh();
+  rgraph.controller.onBeforeCompute(rgraph.graph.getNode(rgraph.root));
+  //Log.write('Done');
+  console.log('done drawing');
+
+  RGraph = rgraph;
+  Stats.init();
+}
+
