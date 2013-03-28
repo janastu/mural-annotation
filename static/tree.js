@@ -167,7 +167,7 @@ var sweet = {
     $.ajax({
       type: 'POST',
       url: config.indexer + '/submit',
-      data: JSON.stringify(this.swts),
+      data: {'data': JSON.stringify(this.swts)},
       success: function() {
         $.ajax({
           type: 'POST',
