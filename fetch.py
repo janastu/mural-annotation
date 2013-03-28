@@ -13,6 +13,7 @@ import StringIO
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET'])
 def index():
     if request.args.has_key('url'):
@@ -20,7 +21,8 @@ def index():
     else:
         return render_template('index.html')
 
-@app.route('/fetch',methods=['GET'])
+
+@app.route('/fetch', methods=['GET'])
 def fetch():
     connection = pymongo.Connection()
     db = connection['mural']
@@ -28,15 +30,37 @@ def fetch():
     ret = {}
     x = 0
     resource = "default"
-    if request.args.has_key('res'):
-        resource = request.args['res']
-    for i in collection.find({'res':resource}):
+    if request.args.has_key('uri'):
+        resource = request.args['uri']
+    for i in collection.find({'uri':resource}):
         del(i['_id'])
         ret[x] = i
         x = x + 1
+    if len(ret) == 0:
+        ret['error'] = "Sorry! No re-treats for you."
     return jsonify(ret)
 
-@app.route('/SWeeText',methods=['GET'])
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    c = pymongo.Connection()
+    db = c['mural']
+    coll = db['data']
+    try:
+        for i in d:
+            coll.insert(request.args['data'])
+            response = make_response()
+            response.status = '200 OK'
+            response.status_code = 200
+            return response
+    except:
+        response = make_response()
+        response.status = "500"
+        respose.data = "Your post could not be saved. Try posting again."
+        return response
+
+
+@app.route('/SWeeText', methods=['GET'])
 def SWeeText():
     if request.args.has_key('url'):
         myhandler1 = urllib2.Request(request.args['url'], headers={'User-Agent': "Mozilla/5.0(X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11"})
@@ -44,14 +68,14 @@ def SWeeText():
         page = a.read()
         a.close()
         try:
-            page = unicode(page,'utf-8')
+            page = unicode(page, 'utf-8')
         except UnicodeDecodeError:
             pass
         root = lxml.html.parse(StringIO.StringIO(page)).getroot()
         root.make_links_absolute(request.args['url'], resolve_base_href = True)
         return lxml.html.tostring(root)
 #Log the errors, don't depend on apache to log it for you.
-    fil = FileHandler(os.path.join(os.path.dirname(__file__), 'logme'),mode='a')
+    fil = FileHandler(os.path.join(os.path.dirname(__file__), 'logme'), mode='a')
     fil.setLevel(logging.ERROR)
     app.logger.addHandler(fil)
 
