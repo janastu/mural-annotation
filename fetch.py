@@ -42,16 +42,40 @@ def fetch():
     return jsonify(ret)
 
 
+@app.route('/search', methods=['GET'])
+def search():
+    connection = pymongo.Connection()
+    db = connection['mural']
+    collection = db['data']
+    y = 0
+    ret = {}
+    for i in collection.find():
+        try:
+            if request.args['data'] in i['nodes']:
+                del(i['_id'])
+                ret[y] = i
+                y = y + 1
+        except:
+            pass
+    return render_template('blank.html', content = ret)
 @app.route('/submit', methods=['POST'])
 def submit():
     c = pymongo.Connection()
     db = c['mural']
     coll = db['data']
-    for i in request.form['data']:
-        coll.insert(i)
-    response = make_response()
-    response.status = "200 OK"
-    return response
+    requestData = json.loads(request.form['data'])
+    try:
+        for i in requestData:
+            coll.insert(i)
+        response = make_response()
+        response.status = '200 OK'
+        response.status_code = 200
+        return response
+    except:
+        response = make_response()
+        response.status = "500"
+        response.data = "Your post could not be saved. Try posting again."
+        return response
 
 @app.route('/web', methods=['GET'])
 def web():
@@ -110,6 +134,7 @@ def SWeeText():
         root.head.append(tree_css)
 
         return lxml.html.tostring(root)
+
 
 #Log the errors, don't depend on apache to log it for you.
     fil = FileHandler(os.path.join(os.path.dirname(__file__), 'logme'),mode='a')

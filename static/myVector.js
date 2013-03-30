@@ -60,7 +60,7 @@ var handler={
 };
 function onFeatureSelect(feature)
 {
-  for(var i in ans.ans)
+ for(var i in ans.ans)
   {
 		if(feature.geometry.bounds['left'] == ans.ans[i]['left'] && feature.geometry.bounds['right'] == ans.ans[i]['right'] && feature.geometry.bounds['top'] == ans.ans[i]['top'] && feature.geometry.bounds['bottom'] == ans.ans[i]['bottom'])
 		{
@@ -244,7 +244,7 @@ function init(url){
   map.addLayers([box2, box3]);
 
   selectControl = new OpenLayers.Control.SelectFeature(box3,
-																											 {onSelect: onFeatureSelect});
+																											 {hover:true, clickout: true, onSelect: onFeatureSelect});
 
   drawControls = {
 	  box : new OpenLayers.Control.DrawFeature(boxes,
@@ -475,3 +475,4 @@ var config = {
 	'postTweetUrl':'http://192.168.100.14:5001',
 	'indexer':'http://localhost:5000'
 }
+
