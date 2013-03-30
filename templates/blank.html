@@ -1,0 +1,7 @@
+{% for obj in content %}
+<div>
+{% for key in content[obj].keys() %}
+{{ key }}: {{ content[obj][key] }}
+{% endfor %}
+</div>
+{% endfor %}
