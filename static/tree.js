@@ -111,6 +111,7 @@ function centerNode(event, node) {
     event.stopPropagation();
   }
   //Log.write('centering node ', node.name);
+  console.log('centering node', node.name);
   RGraph.onClick(node.id, {   
     hideLabels: false,  
     onComplete: function() {  
@@ -150,12 +151,20 @@ var sweet = {
       user: user,
       type: this.type,
       uri: resource,
-      top: attribs.top,
-      bottom: attribs.bottom,
-      left: attribs.left,
-      right: attribs.right,
       nodes: this.nodes,
     };
+    if(attribs.hasOwnProperty('top') &&
+        attribs.hasOwnProperty('bottom') &&
+        attribs.hasOwnProperty('right') &&
+        attribs.hasOwnProperty('left')) {
+      data.top = attribs.top;
+      data.bottom = attribs.bottom;
+      data.left = attribs.left;
+      data.right = attribs.right;
+    }
+    if(attribs.hasOwnProperty('xpath')) {
+      data.xpath = attribs.xpath;
+    }
     this.swts.push(data);
     this.nodes = [];
   },
@@ -164,12 +173,28 @@ var sweet = {
       return;
     }
     $('#publish').attr('disabled', 'disabled');
+    //$('#posted').show();
+    var swts = '';
+    for(var i in this.swts) {
+      var data = this.swts[i];
+      var swt = '@'+data.user+' '+data.type+' '+data.uri;
+      if(data.hasOwnProperty('xpath')) {
+        swt += ' xpath: '+data.xpath;
+      }
+      if(data.hasOwnProperty('top')) {
+        swt += ' #['+data.top+','+data.right+','+data.bottom+','+data.left+']';
+      }
+      swt += ' ' + data.nodes;
+      swts += swt + '\n';
+    }
+    $('#sweet').html(swts);
+    $('#sweeted').show();
     $.ajax({
       type: 'POST',
       url: config.indexer + '/submit',
-      data: {'data': JSON.stringify(this.swts)},
+      data: {'data': this.swts},
       success: function() {
-        $.ajax({
+        /*$.ajax({
           type: 'POST',
           url: config.postTweetUrl,
           data: {'data': JSON.stringify(this.swts)},
@@ -180,10 +205,26 @@ var sweet = {
           error: function() {
             $('#fail-posting').show();
           }
-        });
+        });*/
+        $('#posted').show();
+        var swts = '';
+        for(var i in this.swts) {
+          var data = this.swts[i];
+          var swt = '@'+data.user+' '+data.type+' '+data.uri;
+          if(data.hasOwnProperty('xpath')) {
+            swt += ' xpath: '+data.xpath;
+          }
+          if(data.hasOwnProperty('top')) {
+            swt += ' #['+data.top+','+data.right+','+data.bottom+','+data.left+']';
+          }
+          swt += ' ' + data.nodes;
+          swts += swt + '\n';
+        }
+        $('#sweet').html(swts);
+        this.swts = [];
       },
       error: function() {
-        $('#fail-posting').show();
+        //$('#fail-posting').show();
       }
     });
   }
@@ -225,7 +266,7 @@ function drawRGraph() {
       size: 14
     },
     interpolation: 'polar',
-    transition: $jit.Trans.Sine.easeInOut,
+    transition: $jit.Trans.Sine.easeIn,
     levelDistance: 150,
     onCreateLabel: function(domElement, node) {
       console.log('oncreatelabel');

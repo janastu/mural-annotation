@@ -10,6 +10,7 @@ import os
 import lxml.html
 import urllib2
 import StringIO
+import json
 
 app = Flask(__name__)
 
@@ -46,19 +47,15 @@ def submit():
     c = pymongo.Connection()
     db = c['mural']
     coll = db['data']
-    try:
-        for i in d:
-            coll.insert(request.args['data'])
-            response = make_response()
-            response.status = '200 OK'
-            response.status_code = 200
-            return response
-    except:
-        response = make_response()
-        response.status = "500"
-        response.data = "Your post could not be saved. Try posting again."
-        return response
+    for i in request.form['data']:
+        coll.insert(i)
+    response = make_response()
+    response.status = "200 OK"
+    return response
 
+@app.route('/web', methods=['GET'])
+def web():
+  return render_template('web.html')
 
 @app.route('/SWeeText', methods=['GET'])
 def SWeeText():
@@ -77,13 +74,40 @@ def SWeeText():
         # inject the JS toolbar to annotate text
         script = root.makeelement('script')
         script.set('src', 'static/text-annotation.js')
+        tree = root.makeelement('script')
+        tree.set('src', 'static/tree.js')
+        bs_js = root.makeelement('script')
+        bs_js.set('src', 'static/bootstrap.js')
+        jq = root.makeelement('script')
+        jq.set('src', 'static/jquery-1.9.1.min.js')
+        jit = root.makeelement('script')
+        jit.set('src', 'static/jit.js')
+        us = root.makeelement('script')
+        us.set('src', 'static/underscore-min-1.4.4.js')
+
         link = root.makeelement('link')
         link.set('href', 'static/text-annotation.css')
         link.set('type', 'text/css')
         link.set('rel', 'stylesheet')
+        bs = root.makeelement('link')
+        bs.set('href', 'static/bootstrap.css')
+        bs.set('type', 'text/css')
+        bs.set('rel', 'stylesheet')
+        tree_css = root.makeelement('link')
+        tree_css.set('href', 'static/tree.css')
+        tree_css.set('type', 'text/css')
+        tree_css.set('rel', 'stylesheet')
 
+        root.body.append(jq)
+        root.body.append(bs_js)
+        root.body.append(jit)
+        root.body.append(us)
+        root.body.append(tree)
         root.body.append(script)
+
+        root.head.append(bs)
         root.head.append(link)
+        root.head.append(tree_css)
 
         return lxml.html.tostring(root)
 
