@@ -192,7 +192,7 @@ var sweet = {
       url: config.indexer + '/submit',
       data: {'data': JSON.stringify(this.swts)},
       success: function() {
-        $.ajax({
+        /*$.ajax({
           type: 'POST',
           url: config.postTweetUrl,
           data: {'data': JSON.stringify(this.swts)},
@@ -203,7 +203,7 @@ var sweet = {
           error: function() {
             $('#fail-posting').show();
           }
-        });
+        });*/
         $('#posted').show();
         var swts = '';
         for(var i in sweet.swts) {

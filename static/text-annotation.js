@@ -57,7 +57,7 @@ var attributes = {};
   var onHover = function(event) {
     var elem = event.currentTarget;
     //console.log(elem.style);
-    elem.addEventListener('click', onClick);
+    elem.addEventListener('click', onClick, false);
     elem.style.border = '1px solid black';
     elem.style.boxShadow = '1px 5px 5px #ccc';
     //elem.style.background = 'red';
@@ -73,7 +73,9 @@ var attributes = {};
     elem.removeEventListener('click', onClick);
   };
   var onClick = function(event) {
-    event.stopPropagation();
+    console.log(event);
+    $(event).preventDefault();
+    $(event).stopPropagation();
     var elem = event.currentTarget;
     elem.style.border = 'none';
     elem.style.boxShadow = '';
@@ -83,6 +85,7 @@ var attributes = {};
     user = prompt('Enter your name: ');
     label = prompt('Enter a label for annotation: ');
     initAnnotationTree();
+    return false;
   };
 
 
