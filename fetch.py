@@ -50,15 +50,21 @@ def search():
     collection = db['data']
     y = 0
     ret = {}
+    keywords_dict = json.loads(request.args['data'])
+    keywords = json.loads(keywords_dict)['data']
     for i in collection.find():
-        try:
-            if request.args['data'] in i['nodes']:
-                del(i['_id'])
-                ret[y] = i
-                y = y + 1
-        except:
-            pass
+        for keyword in keywords:
+            print keyword
+            try:
+                if keyword in i['nodes']:
+                    del(i['_id'])
+                    ret[y] = i
+                    y = y + 1
+            except:
+                pass
     return render_template('blank.html', content = ret)
+
+
 @app.route('/submit', methods=['POST'])
 def submit():
     c = pymongo.Connection()
