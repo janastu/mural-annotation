@@ -68,6 +68,7 @@ def submit():
         for i in requestData:
             coll.insert(i)
         response = make_response()
+        response.headers['Access-Control-Allow-Origin'] = '*'
         response.status = '200 OK'
         response.status_code = 200
         return response

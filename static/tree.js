@@ -83,13 +83,22 @@ var Stats = {
     else {
       html += '<ul>';
       for(var i in sweet.nodes) {
-        html += '<li>' + sweet.nodes[i] + '</li>';
+        html += '<li id="selected-'+ sweet.nodes[i] +'">' + sweet.nodes[i] +
+          ' <span> <a href="javascript:void(0);" onclick="removeItem(event);">&times;</a></span></li>';
       }
       html += '</ul>';
     }
     this.selected_info.innerHTML = html;
   }
 };
+
+var removeItem = function(event) {
+  console.log($(event.currentTarget));
+  var id = $(event.currentTarget).parent().parent().attr('id');
+  var node = id.split('-')[1];
+  $(event.currentTarget).parent().parent().remove();
+  sweet.remove(node);
+}
 
 // return "add node" template button creating an id for it
 var addNodeTemplate = function(node) {
@@ -137,11 +146,16 @@ var sweet = {
   type: 'idh-mowl',
   add: function(node) {
     if(_.indexOf(node, this.nodes) === -1) {
-      this.nodes.push(node);
+      sweet.nodes.push(node);
     }
     Stats.appendSelectedList();
   },
   remove: function(node) {
+    console.log(node);
+    var idx = _.indexOf(sweet.nodes, node);
+    if(idx !== -1) {
+      sweet.nodes.splice(idx, 1);
+    }
   },
   save: function() {
     var resource = window.location.search ? window.location.search.split('=')[1] :
@@ -173,28 +187,12 @@ var sweet = {
       return;
     }
     $('#publish').attr('disabled', 'disabled');
-    //$('#posted').show();
-    var swts = '';
-    for(var i in this.swts) {
-      var data = this.swts[i];
-      var swt = '@'+data.user+' '+data.type+' '+data.uri;
-      if(data.hasOwnProperty('xpath')) {
-        swt += ' xpath: '+data.xpath;
-      }
-      if(data.hasOwnProperty('top')) {
-        swt += ' #['+data.top+','+data.right+','+data.bottom+','+data.left+']';
-      }
-      swt += ' ' + data.nodes;
-      swts += swt + '\n';
-    }
-    $('#sweet').html(swts);
-    $('#sweeted').show();
     $.ajax({
       type: 'POST',
       url: config.indexer + '/submit',
-      data: {'data': this.swts},
+      data: {'data': JSON.stringify(this.swts)},
       success: function() {
-        /*$.ajax({
+        $.ajax({
           type: 'POST',
           url: config.postTweetUrl,
           data: {'data': JSON.stringify(this.swts)},
@@ -205,11 +203,12 @@ var sweet = {
           error: function() {
             $('#fail-posting').show();
           }
-        });*/
+        });
         $('#posted').show();
         var swts = '';
-        for(var i in this.swts) {
-          var data = this.swts[i];
+        for(var i in sweet.swts) {
+          var data = sweet.swts[i];
+          console.log(data);
           var swt = '@'+data.user+' '+data.type+' '+data.uri;
           if(data.hasOwnProperty('xpath')) {
             swt += ' xpath: '+data.xpath;
@@ -217,11 +216,13 @@ var sweet = {
           if(data.hasOwnProperty('top')) {
             swt += ' #['+data.top+','+data.right+','+data.bottom+','+data.left+']';
           }
-          swt += ' ' + data.nodes;
+          swt += ' ' + data.nodes.join();
           swts += swt + '\n';
         }
+        console.log(swts);
+        $('#sweeted').show();
         $('#sweet').html(swts);
-        this.swts = [];
+        sweet.swts = [];
       },
       error: function() {
         //$('#fail-posting').show();
@@ -244,8 +245,8 @@ function drawRGraph() {
     injectInto: 'infovis',
     Navigation: {
       enable: true,
-      panning: 'avoid nodes',
-      zooming: 100
+      //panning: 'avoid nodes',
+      zooming: 10
     },
     Node: {
       overridable: true,

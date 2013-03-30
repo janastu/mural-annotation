@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv='imagetoolbar' content='no'/>
+	<title> Text Annotation </title>
+  <link rel="stylesheet" type="text/css" href="static/bootstrap.css"></link>
+	<script type="text/javascript" src="static/bootstrap.js"></script>
+</head>
+	<body>
+    <div class="fluid-container">
+      <div class="explain lead"> Text annotation of Hampi related content using the IDH Mowl</div>
+      <div class="input span9">
+        Enter URL to annotate: <input id="url" type="text" placeholder="http://hampi.co.in">
+        <button class="btn" onclick="loadURL();"> Load </button>
+      </div>
+    </div>
+    <script>
+      function loadURL() {
+        var url = document.getElementById('url').value;
+        if(!url.match(/http/)) {
+          url = 'http://' + url;
+        }
+        window.location.href = '/SWeeText?url=' + encodeURIComponent(url);
+      }
+    </script>
+  </body>
+</html>
