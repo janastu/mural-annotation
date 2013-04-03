@@ -74,8 +74,8 @@ var attributes = {};
   };
   var onClick = function(event) {
     console.log(event);
-    $(event).preventDefault();
-    $(event).stopPropagation();
+    //$(event).preventDefault();
+    event.stopPropagation();
     var elem = event.currentTarget;
     elem.style.border = 'none';
     elem.style.boxShadow = '';
