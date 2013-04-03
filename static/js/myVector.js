@@ -430,7 +430,7 @@ function getWindowWidth() {
 function resize() {
   var map = document.getElementById("map");
   var header = document.getElementById("header");
-  var subheader = document.getElementById("subheader");
+  var subheader = document.getElementById("map-credits");
   map.style.height = (getWindowHeight()-180) +"px";
   map.style.width = (getWindowWidth()-60) + "px";
   //header.style.width = (getWindowWidth()-60) + "px";
