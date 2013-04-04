@@ -43,7 +43,7 @@ function loadOntologyJSON() {
     return;
   }
   console.log('Loading ontology file');
-  var url = 'static/graphs/Hampi_GirijaKalyana.json'
+  var url = 'static/ontology/GirijaKalyanaStory.json'
   $.ajax({
     type: 'GET',
     url: url,

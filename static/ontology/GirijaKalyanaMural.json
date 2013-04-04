@@ -1,0 +1,175 @@
+[{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaEg",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"Anklet",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"Pampapathi",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"PampapathiEg1",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"PampapathiEg2",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"Snake",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"Nandi",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"NandiEg",
+"nodeFrom":"Nandi",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Nandi","name":"Nandi"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"black"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"Pampapathi",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Pampapathi","name":"Pampapathi"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"Pampapathi",
+"nodeFrom":"Hampamma",
+"data":{"$color":"black"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Hampamma","name":"Hampamma"
+},{ 
+"adjacencies" :[{"nodeTo" :"Daksha",
+"nodeFrom":"Hampamma",
+"data":{"$color":"black"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Hampamma","name":"Hampamma"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"Daksha",
+"data":{"$color":"black"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Daksha","name":"Daksha"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"Hampamma",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Hampamma","name":"Hampamma"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"Daksha",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"lightgray","$type":"box",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"Daksha","name":"Daksha"
+},{ 
+"adjacencies" :[{"nodeTo" :"ShivaPurana",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"Pampapathi",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"Hampamma",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"Daksha",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaMural",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"PalaPuja",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"KalyanUtsav",
+"nodeFrom":"GirijaKalyanaStory",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaStory","name":"GirijaKalyanaStory"
+},{ 
+"adjacencies" :[{"nodeTo" :"Daksha",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"GirijaKalyanaStory",
+"nodeFrom":"ShivaPurana",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"ShivaPurana","name":"ShivaPurana"
+},{ 
+"adjacencies" :[{"nodeTo" :"KalyanaMantapa",
+"nodeFrom":"GirijaKalyanaMural",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+},{ 
+"adjacencies" :[{"nodeTo" :"VirupakshaTemple",
+"nodeFrom":"KalyanaMantapa",
+"data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodecDir":""},"id":"KalyanaMantapa","name":"KalyanaMantapa"
+},{ 
+"adjacencies" :[{"nodeTo" :"VijaynagaraTradition",
+"nodeFrom":"GirijaKalyanaMural",
+ "data":{"$color":"blue"}}] ,
+"data":{"$color":"black","$type":"ellipse",
+"$fontcolor":"black","$fontsize":"20","$nodeDir":""},"id":"GirijaKalyanaMural","name":"GirijaKalyanaMural"
+}];
