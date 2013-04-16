@@ -4,7 +4,7 @@ var labelType, animate, useGradients, nativeTextSupport, RGraph;
       iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
       typeOfCanvas = typeof HTMLCanvasElement,
       nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-      textSupport = nativeCanvasSupport 
+      textSupport = nativeCanvasSupport
         && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
   //I'm setting this based on the fact that ExCanvas provides text support for IE
   //and that as of today iPhone/iPad current text support is lame
@@ -121,12 +121,12 @@ function centerNode(event, node) {
   }
   //Log.write('centering node ', node.name);
   console.log('centering node', node.name);
-  RGraph.onClick(node.id, {   
-    hideLabels: false,  
-    onComplete: function() {  
-      //Log.write("done");  
+  RGraph.onClick(node.id, {
+    hideLabels: false,
+    onComplete: function() {
+      //Log.write("done");
     }
-  });  
+  });
   var html = '<h4>' + node.name + '</h4><b>Links To:</b>:<ul>';
   node.eachAdjacency(function(adj) {
     html += '<li><a class="list-nodes" href="#" id="list-' + adj.nodeTo.id + '">' +
@@ -159,13 +159,14 @@ var sweet = {
   },
   save: function() {
     var resource = window.location.search ? window.location.search.split('=')[1] :
-      'default';
+      window.location.href;
     resource = decodeURIComponent(resource).replace('"', '', 'gi');
     var data = {
       user: user,
       type: this.type,
       uri: resource,
       nodes: this.nodes,
+			name: attribs.name
     };
     if(attribs.hasOwnProperty('top') &&
         attribs.hasOwnProperty('bottom') &&

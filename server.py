@@ -34,14 +34,22 @@ def fetch():
     resource = "default"
     if request.args.has_key('uri'):
         resource = request.args['uri']
-    for i in collection.find({'resource':resource}):
+    for i in collection.find({'uri':resource}):
         del(i['_id'])
         ret[x] = i
         x = x + 1
+    else:
+        for i in collection.find():
+            del(i['_id'])
+            ret[x] = i
+            x = x + 1
     if len(ret) == 0:
         ret['error'] = "Sorry! No re-treats for you."
     return jsonify(ret)
 
+@app.route('/sweets', methods=['GET'])
+def displaySweet():
+    return render_template('sweets.html')
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -57,7 +65,6 @@ def search():
             try:
                 if keyword in i['nodes']:
                     del(i['_id'])
-                    i['text'] = urllib.unquote_plus(i['text'])
                     ret[y] = i
                     y = y + 1
             except:
@@ -119,7 +126,7 @@ def SWeeText():
 
         bs_js = root.makeelement('script')
         bs_js.set('src', 'static/bootstrap.js')
-        
+
         jit = root.makeelement('script')
         jit.set('src', 'static/jit.js')
 
