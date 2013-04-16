@@ -11,6 +11,7 @@ import lxml.html
 import urllib2
 import StringIO
 import json
+import urllib
 
 app = Flask(__name__)
 
@@ -33,7 +34,7 @@ def fetch():
     resource = "default"
     if request.args.has_key('uri'):
         resource = request.args['uri']
-    for i in collection.find({'uri':resource}):
+    for i in collection.find({'resource':resource}):
         del(i['_id'])
         ret[x] = i
         x = x + 1
@@ -50,13 +51,13 @@ def search():
     y = 0
     ret = {}
     keywords_dict = json.loads(request.args['data'])
-    keywords = json.loads(keywords_dict)['data']
+    #keywords = json.loads(keywords_dict)['data']
     for i in collection.find():
-        for keyword in keywords:
-            print keyword
+        for keyword in keywords_dict:
             try:
                 if keyword in i['nodes']:
                     del(i['_id'])
+                    i['text'] = urllib.unquote_plus(i['text'])
                     ret[y] = i
                     y = y + 1
             except:

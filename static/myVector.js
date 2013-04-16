@@ -72,11 +72,12 @@ function onFeatureSelect(feature)
 				str['material'] = ans.ans[i]['material'];
 				//	str['jewellery'] = ans.ans[i]['jewellery']
 	    }
+
 	    z = new OpenLayers.Popup.FramedCloud(
 				"test",
 				feature.geometry.getBounds().getCenterLonLat(),
 				new OpenLayers.Size(640,480),
-				JSON.stringify(str,null,'  '),null,true);
+					'<iframe src='+config.indexer+"/search?data="+JSON.stringify(ans.ans[i]["nodes"])+" ></iframe>",null,true);
 	    feature.popup = z;
 	    z.panMapIfOutOfView = true;
 	    map.addPopup(z);
@@ -180,7 +181,7 @@ function init(url){
 			numZoomLevels: 8
 		};
 		map = new OpenLayers.Map('map', options);
-		$.get(config.indexer+"/fetch",{url:window.location.href} , function(data){
+		$.get(config.indexer+"/fetch",{uri:"default"} , function(data){
 			if (data != undefined)
 			{
 				ans.ans = data;
