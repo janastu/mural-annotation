@@ -43,7 +43,7 @@ function loadOntologyJSON() {
     return;
   }
   console.log('Loading ontology file');
-  var url = 'static/graphs/Hampi_GirijaKalyana.json'
+  var url = 'static/graphs/GirijaKalyanaStory.json'
   $.ajax({
     type: 'GET',
     url: url,
@@ -204,7 +204,8 @@ var sweet = {
             $('#fail-posting').show();
           }
         });*/
-        $('#posted').show();
+        //$('#posted').html(posted_template());
+        //$('#posted').show();
         var swts = '';
         for(var i in sweet.swts) {
           var data = sweet.swts[i];
@@ -220,16 +221,27 @@ var sweet = {
           swts += swt + '\n';
         }
         console.log(swts);
+        $('#sweeted').html(sweeted_template(swts));
         $('#sweeted').show();
-        $('#sweet').html(swts);
         sweet.swts = [];
       },
       error: function() {
-        //$('#fail-posting').show();
+        $('#fail-posting').html(fail_posting_template());
+        $('#fail-posting').show();
       }
     });
   }
 };
+
+var sweeted_template = function(msg) {
+    return '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><div>' + msg + '</div></div>';
+  };
+  var posted_template = function() {
+    return '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><b>Success!</b> </div>';
+  };
+  var fail_posting_template = function() {
+    return '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button><b>Error!</b> Something went wrong. Could not post.</div>';
+  };
 
 function closeAnnotationTree() {
   $('#annotation-tree').modal('hide');
@@ -245,7 +257,7 @@ function drawRGraph() {
     injectInto: 'infovis',
     Navigation: {
       enable: true,
-      //panning: 'avoid nodes',
+      panning: 'avoid nodes',
       zooming: 10
     },
     Node: {

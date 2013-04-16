@@ -3,21 +3,30 @@
 <head>
   <meta charset="utf-8">
 	<meta http-equiv='imagetoolbar' content='no'/>
-	<title> Text Annotation </title>
+	<title> Web Annotation </title>
   <link rel="stylesheet" type="text/css" href="static/bootstrap.css"></link>
+	<script type="text/javascript" src="static/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="static/bootstrap.js"></script>
+  <style type="text/css">
+    .container {
+      margin-top: 30px;
+    }
+  </style>
 </head>
 	<body>
-    <div class="fluid-container">
-      <div class="explain lead"> Text annotation of Hampi related content using the IDH Mowl</div>
+    <div class="container">
+      <div class="explain lead"> IDH-SWeeTer Annotation for Web Pages </div>
       <div class="input span9">
-        Enter URL to annotate: <input id="url" type="text" placeholder="http://hampi.co.in">
+        Enter URL to annotate: <input id="url" type="text" placeholder="http://vijayanagara.in">
         <button class="btn" onclick="loadURL();"> Load </button>
       </div>
     </div>
     <script>
       function loadURL() {
         var url = document.getElementById('url').value;
+        if(!url) {
+          url = 'http://vijayanagara.in';
+        }
         if(!url.match(/http/)) {
           url = 'http://' + url;
         }

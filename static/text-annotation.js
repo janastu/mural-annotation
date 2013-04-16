@@ -32,6 +32,8 @@ var attributes = {};
         nodes[i].addEventListener('mouseout', onHoverOut);
       }
     }
+    //$(document).mouseover(onHover);
+    //$(document).mouseout(onHoverOut);
   };
   var removeSelect = function() {
     var nodes = document.getElementsByTagName('*');
@@ -43,13 +45,22 @@ var attributes = {};
         nodes[i].removeEventListener('mouseout', onHoverOut);
       }
     }
+    //$(document).unbind('mouseover', onHover);
+    //$(document).unbind('mouseout', onHoverOut);
   };
   var toolbar_template = function() {
-    return '<div class="toolbar"><button class="btn" id="anno-btn" onclick="initSelect();">'+
-      'Annotate</button> <button class="btn" id="publish">Publish</button></div>' + 
-      '<div class="alert alert-error" id="sweeted"><button type="button" class="close" data-dismiss="alert">&times;</button><div id="sweet"></div></div>'+
-      '<div id="posted" class="alert alert-success" style="display: none; width: 300px; margin: auto;"><button type="button" class="close" data-dismiss="alert">&times;</button><b>Success!</b> </div><div id="fail-posting" class="alert alert-error" style="display: none; width: 300px; margin: auto;"><button type="button" class="close" data-dismiss="alert">&times;</button><b>Error!</b> Something went wrong. Could not post.</div>';
+    return '<div class="navbar">'+
+      '<div class="navbar-inner"> <ul class="nav">'+
+      '<li><a class="brand" href="#"> IDH-SWeeTer Annotation </a></li>' +
+      '<li><a></a></li>'+
+      '<li><a></a></li>'+
+      '<li><button class="btn" id="anno-btn" onclick="initSelect();">Annotate</button></li>' +
+      '<li><a></a></li>'+
+      '<li><button class="btn" id="publish">Publish</button></li>' +
+      '</ul></div></div>' +
+      '<div id="sweeted"></div> <div id="posted"></div> <div id="fail-posting"></div>';
   };
+
   var modal_template = function() {
  return '<div id="annotation-tree" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">    <div class="modal-header">      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>      <div id="myModalLabel">        <h3>Annotation attributes</h3>        <small>Select attributes for annotation</small>      </div>    </div>    <div class="modal-body">      <div id="stats">        <div id="node-info"></div>        <div id="selected-nodes"></div>      </div>      <div id="infovis"></div>      <div id="status"></div>    </div>    <div class="modal-footer">      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>      <button class="btn btn-primary" onclick="closeAnnotationTree();">Save changes</button>    </div>  </div>';
   };
@@ -73,10 +84,11 @@ var attributes = {};
     elem.removeEventListener('click', onClick);
   };
   var onClick = function(event) {
-    console.log(event);
-    //$(event).preventDefault();
+    //console.log(event);
+    //event.stopImmediatePropagation();
     event.stopPropagation();
-    var elem = event.currentTarget;
+    event.preventDefault();
+    var elem = event.target;
     elem.style.border = 'none';
     elem.style.boxShadow = '';
     //console.log('clicked', elem);
@@ -88,66 +100,56 @@ var attributes = {};
     return false;
   };
 
-
-var DOM = {
-    getXpath : function (element)
-    {
-	var str = '';
-	var currentNode = element;
-	var path = '';
-	var index = -1;
-
-	if (currentNode.nodeName != "#text")
-	{
-	    path = DOM.makePath(currentNode);
-	}
-	else
-	{
-	    path = DOM.makePath(currentNode.parentNode);
-	}
-
-
-	return path;
+  // Object containing methods to find out xpath of an
+  // element
+  var DOM = {
+    getXpath: function(element) {
+      var str = '';
+      var currentNode = element;
+      var path = '';
+      var index = -1;
+      if (currentNode.nodeName != "#text") {
+        path = DOM.makePath(currentNode);
+      }
+      else {
+        path = DOM.makePath(currentNode.parentNode);
+      }
+      return path;
     },
-    getElementIdx : function getElementIdx(elt)
-    {
-	var count = 1;
-	for (var sib = elt.previousSibling; sib ; sib = sib.previousSibling)
-	{
-	    if(sib.nodeType == 1 && sib.tagName == elt.tagName)count++
-	}
-
-	return count;
+    getElementIdx: function(elt) {
+      var count = 1;
+      for (var sib = elt.previousSibling; sib ; sib = sib.previousSibling) {
+        if(sib.nodeType == 1 && sib.tagName == elt.tagName) {
+          count++;
+        }
+      }
+      return count;
     },
-
-    makePath : function makePath(elt){
-	var path = '';
-	for (; elt && elt.nodeType == 1; elt = elt.parentNode)
-	{
-	    if(elt.id == "")
-	    {
-		idx = DOM.getElementIdx(elt);
-		xname = elt.tagName;
-		if (idx > 1)
-		    xname += "[" + idx + "]";
-		path = "/" + xname + path;
-	    }
-	    else
-	    {
-		path = "//*[@id='"+elt.id+"']"+path;
-		break;
-	    }
-	}
-	return path;
+    makePath: function(elt) {
+      var path = '';
+      for (; elt && elt.nodeType == 1; elt = elt.parentNode) {
+        if(elt.id == "") {
+          idx = DOM.getElementIdx(elt);
+          xname = elt.tagName;
+          if (idx > 1) {
+            xname += "[" + idx + "]";
+          }
+          path = "/" + xname + path;
+        }
+        else {
+          path = "//*[@id='"+elt.id+"']"+path;
+          break;
+        }
+      }
+      return path;
     },
-    settextContent : function(element, content){
-	$(element).html(content);
+    settextContent: function(element, content) {
+      $(element).html(content);
     },
-    gettextContent:function(element)
-    {
-	return $(element).html();
-    },
-};
+    gettextContent: function(element) {
+      return $(element).html();
+    }
+  };
 })();
 var config = {
 	'postTweetUrl':'http://localhost:5001',

@@ -91,7 +91,9 @@ def web():
 @app.route('/SWeeText', methods=['GET'])
 def SWeeText():
     if request.args.has_key('url'):
-        myhandler1 = urllib2.Request(request.args['url'], headers={'User-Agent': "Mozilla/5.0(X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11"})
+        # Log -- comment them
+        print "Got URL " + request.args['url'] + " .. Fetching and Parsing.."
+        myhandler1 = urllib2.Request(request.args['url'], headers={'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:20.0) Gecko/20100101 Firefox/20.0"})
         a = urllib2.urlopen(myhandler1)
         page = a.read()
         a.close()
@@ -101,18 +103,25 @@ def SWeeText():
             pass
         root = lxml.html.parse(StringIO.StringIO(page)).getroot()
         root.make_links_absolute(request.args['url'], resolve_base_href = True)
+        # Log -- comment them
+        print "Page parsed.. Preparing to send.."
 
         # inject the JS toolbar to annotate text
-        script = root.makeelement('script')
-        script.set('src', 'static/text-annotation.js')
-        tree = root.makeelement('script')
-        tree.set('src', 'static/tree.js')
-        bs_js = root.makeelement('script')
-        bs_js.set('src', 'static/bootstrap.js')
         jq = root.makeelement('script')
         jq.set('src', 'static/jquery-1.9.1.min.js')
+
+        script = root.makeelement('script')
+        script.set('src', 'static/text-annotation.js')
+
+        tree = root.makeelement('script')
+        tree.set('src', 'static/tree.js')
+
+        bs_js = root.makeelement('script')
+        bs_js.set('src', 'static/bootstrap.js')
+        
         jit = root.makeelement('script')
         jit.set('src', 'static/jit.js')
+
         us = root.makeelement('script')
         us.set('src', 'static/underscore-min-1.4.4.js')
 
@@ -120,25 +129,27 @@ def SWeeText():
         link.set('href', 'static/text-annotation.css')
         link.set('type', 'text/css')
         link.set('rel', 'stylesheet')
+
         bs = root.makeelement('link')
         bs.set('href', 'static/bootstrap.css')
         bs.set('type', 'text/css')
         bs.set('rel', 'stylesheet')
+
         tree_css = root.makeelement('link')
         tree_css.set('href', 'static/tree.css')
         tree_css.set('type', 'text/css')
         tree_css.set('rel', 'stylesheet')
 
-        root.body.append(jq)
-        root.body.append(bs_js)
-        root.body.append(jit)
-        root.body.append(us)
-        root.body.append(tree)
-        root.body.append(script)
-
         root.head.append(bs)
         root.head.append(link)
         root.head.append(tree_css)
+
+        root.head.append(jq)
+        root.head.append(bs_js)
+        root.head.append(jit)
+        root.head.append(us)
+        root.head.append(tree)
+        root.head.append(script)
 
         return lxml.html.tostring(root)
 
