@@ -92,7 +92,7 @@ def submit():
         response.data = "Your post could not be saved. Try posting again."
         return response
 
-@app.route('/web', methods=['GET'])
+@app.route('/web/', methods=['GET'])
 def web():
   return render_template('web.html')
 
