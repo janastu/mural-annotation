@@ -30,7 +30,7 @@
         if(!url.match(/http/)) {
           url = 'http://' + url;
         }
-        window.location.href = '/SWeeText?url=' + encodeURIComponent(url);
+        window.location.href = '{{ url_for("SWeeText") }}?url=' + encodeURIComponent(url);
       }
     </script>
   </body>
