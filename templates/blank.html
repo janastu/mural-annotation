@@ -1,7 +1,7 @@
 {% for obj in content %}
-<div>
+<div class="well">
 {% for key in content[obj].keys() %}
-<p>{{ key }}: {{ content[obj][key] }}</p>
+<p><b>{{ key }}</b>: {{ content[obj][key] }}</p>
 {% endfor %}
 </div>
 {% endfor %}

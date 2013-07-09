@@ -13,7 +13,12 @@ import StringIO
 import json
 import urllib
 
+import conf
+import sweetmaker
+
 app = Flask(__name__)
+
+SWEET_STORE_URL = conf.SWEET_STORE_URL
 
 
 @app.route('/', methods=['GET'])
@@ -60,15 +65,32 @@ def search():
     ret = {}
     keywords_dict = json.loads(request.args['data'])
     #keywords = json.loads(keywords_dict)['data']
-    for i in collection.find():
-        for keyword in keywords_dict:
+    if 'nodes' in keywords_dict:
+        for i in collection.find():
             try:
-                if keyword in i['nodes']:
-                    del(i['_id'])
-                    ret[y] = i
-                    y = y + 1
+                if 'how' in i:
+                    i['nodes'] = i['how']
             except:
                 pass
+            for node in keywords_dict['nodes']:
+                try:
+                    if node in i['nodes']:
+                        del(i['_id'])
+                        ret[y] = i
+                        y = y + 1
+                except:
+                    pass
+    elif 'where' in keywords_dict:
+        for i in collection.find({'uri': keywords_dict['where']}):
+            del(i['_id'])
+            ret[y] = i
+            y = y + 1
+        for i in collection.find({'where': {'$regex':\
+                                            keywords_dict['where']}}):
+            del(i['_id'])
+            ret[y] = i
+            y = y + 1
+    
     return render_template('blank.html', content = ret)
 
 
@@ -81,16 +103,25 @@ def submit():
     try:
         for i in requestData:
             coll.insert(i)
+        print 'inserted'
+        print requestData
         response = make_response()
         response.headers['Access-Control-Allow-Origin'] = '*'
-        response.status = '200 OK'
         response.status_code = 200
-        return response
+        for i in requestData:
+            del(i['_id'])
+            i['how'] = '{concepts: ' + ', '.join(i['how']) + '}'
+            #i['how'] = attribs
+        print 'payload for sweet'
+        print requestData
+        sweetmaker.sweet(SWEET_STORE_URL, requestData)
     except:
         response = make_response()
-        response.status = "500"
+        response.status_code = 500
         response.data = "Your post could not be saved. Try posting again."
-        return response
+
+    return response
+
 
 @app.route('/web/', methods=['GET'])
 def web():
@@ -116,35 +147,35 @@ def SWeeText():
 
         # inject the JS toolbar to annotate text
         jq = root.makeelement('script')
-        jq.set('src', 'static/jquery-1.9.1.min.js')
+        jq.set('src', '/static/jquery-1.9.1.min.js')
 
         script = root.makeelement('script')
-        script.set('src', 'static/text-annotation.js')
+        script.set('src', '/static/text-annotation.js')
 
         tree = root.makeelement('script')
-        tree.set('src', 'static/tree.js')
+        tree.set('src', '/static/tree.js')
 
         bs_js = root.makeelement('script')
-        bs_js.set('src', 'static/bootstrap.js')
+        bs_js.set('src', '/static/bootstrap.js')
 
         jit = root.makeelement('script')
-        jit.set('src', 'static/jit.js')
+        jit.set('src', '/static/jit.js')
 
         us = root.makeelement('script')
-        us.set('src', 'static/underscore-min-1.4.4.js')
+        us.set('src', '/static/underscore-min-1.4.4.js')
 
         link = root.makeelement('link')
-        link.set('href', 'static/text-annotation.css')
+        link.set('href', '/static/text-annotation.css')
         link.set('type', 'text/css')
         link.set('rel', 'stylesheet')
 
         bs = root.makeelement('link')
-        bs.set('href', 'static/bootstrap.css')
+        bs.set('href', '/static/bootstrap.css')
         bs.set('type', 'text/css')
         bs.set('rel', 'stylesheet')
 
         tree_css = root.makeelement('link')
-        tree_css.set('href', 'static/tree.css')
+        tree_css.set('href', '/static/tree.css')
         tree_css.set('type', 'text/css')
         tree_css.set('rel', 'stylesheet')
 

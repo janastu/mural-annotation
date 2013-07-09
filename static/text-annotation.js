@@ -35,6 +35,17 @@ var attributes = {};
     //$(document).mouseover(onHover);
     //$(document).mouseout(onHoverOut);
   };
+  window.listAnno = function() { // list annotations of current page
+    console.log('listing annotations');
+    $.get(config.indexer + '/search?data=' +
+        JSON.stringify({'where': window.location.search.split('url=')[1]}),
+        function(data) {
+          //console.log(data);
+          $('#list-anno .modal-body').html(data);
+          $('#list-anno').modal();
+        });
+  };
+
   var removeSelect = function() {
     var nodes = document.getElementsByTagName('*');
     var bar = document.getElementById('annotate-bar');
@@ -56,9 +67,22 @@ var attributes = {};
       '<li><a></a></li>'+
       '<li><button class="btn" id="anno-btn" onclick="initSelect();">Annotate</button></li>' +
       '<li><a></a></li>'+
+      '<li><button class="btn" id="list-anno-btn" onclick="listAnno();">Annotations</button></li>' +
+      '<li><a></a></li>'+
       '<li><button class="btn" id="publish">Publish</button></li>' +
       '</ul></div></div>' +
-      '<div id="sweeted"></div> <div id="posted"></div> <div id="fail-posting"></div>';
+      '<div id="sweeted"></div> <div id="posted"></div> <div id="fail-posting"></div>'+
+      '<div id="list-anno" class="modal hide fade" role="dialog" aria-labelledby="list-anno-label" aria-hidden="true">'+
+      ' <div class="modal-header">'+
+      '   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'+
+      '   <h3>Annotations</h3>'+
+      ' </div>'+
+      ' <div class="modal-body">'+
+      ' </div>'+
+      ' <div class="modal-footer">'+
+      '   <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>'+
+      ' </div>'+
+      '</div>';
   };
 
   var modal_template = function() {

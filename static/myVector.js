@@ -77,7 +77,7 @@ function onFeatureSelect(feature)
 				"test",
 				feature.geometry.getBounds().getCenterLonLat(),
 				new OpenLayers.Size(640,480),
-					'<iframe src='+config.indexer+"/search?data="+JSON.stringify(ans.ans[i]["nodes"])+" ></iframe>",null,true);
+					'<iframe src='+config.indexer+"/search?data="+JSON.stringify({'nodes': ans.ans[i]["nodes"]})+" ></iframe>",null,true);
 	    feature.popup = z;
 	    z.panMapIfOutOfView = true;
 	    map.addPopup(z);

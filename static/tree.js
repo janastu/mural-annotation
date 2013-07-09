@@ -162,23 +162,24 @@ var sweet = {
       window.location.href;
     resource = decodeURIComponent(resource).replace('"', '', 'gi');
     var data = {
-      user: user,
-      type: this.type,
-      uri: resource,
-      nodes: this.nodes,
+      who: user,
+      what: this.type,
+      where: resource,
+      how: this.nodes,
 			name: attribs.name
     };
     if(attribs.hasOwnProperty('top') &&
         attribs.hasOwnProperty('bottom') &&
         attribs.hasOwnProperty('right') &&
         attribs.hasOwnProperty('left')) {
-      data.top = attribs.top;
-      data.bottom = attribs.bottom;
-      data.left = attribs.left;
-      data.right = attribs.right;
+
+      data.where += '#[' + attribs.top +
+        ',' + attribs.bottom +
+        ',' + attribs.left +
+        ',' + attribs.right + ']';
     }
     if(attribs.hasOwnProperty('xpath')) {
-      data.xpath = attribs.xpath;
+      data.where += '#' + attribs.xpath;
     }
     this.swts.push(data);
     this.nodes = [];
@@ -193,32 +194,12 @@ var sweet = {
       url: config.indexer + '/submit',
       data: {'data': JSON.stringify(this.swts)},
       success: function() {
-        /*$.ajax({
-          type: 'POST',
-          url: config.postTweetUrl,
-          data: {'data': JSON.stringify(this.swts)},
-          success: function() {
-            $('#posted').show();
-            this.swts = [];
-          },
-          error: function() {
-            $('#fail-posting').show();
-          }
-        });*/
-        //$('#posted').html(posted_template());
-        //$('#posted').show();
         var swts = '';
         for(var i in sweet.swts) {
           var data = sweet.swts[i];
           console.log(data);
-          var swt = '@'+data.user+' '+data.type+' '+data.uri;
-          if(data.hasOwnProperty('xpath')) {
-            swt += ' xpath: '+data.xpath;
-          }
-          if(data.hasOwnProperty('top')) {
-            swt += ' #['+data.top+','+data.right+','+data.bottom+','+data.left+']';
-          }
-          swt += ' ' + data.nodes.join();
+          var swt = '@'+data.who+' #'+data.what+' / '+data.where;
+          swt += ' {' + data.how.join() + ' }';
           swts += swt + '\n';
         }
         console.log(swts);
